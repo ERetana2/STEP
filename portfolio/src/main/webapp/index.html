@@ -4,18 +4,18 @@
 <head>
 	<meta charset="UTF-8">
 	<title>My Portfolio</title>
+    <!-- Icons from W3-->
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<script src="script.js"></script>
 </head>
 
 <body>
 
-	<!-- Icons from W3-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 	<nav id="nav-bar">
 		<div class="drop-down">
-			<button onclick="photoDropdown()" id="media-dropdown"><img src="../../../images/me.jpg" id="menu-img" style="width:70px;height:70px">
+			<button onclick="photoDropdown()" id="media-dropdown"><img src="/images/me.jpg" id="menu-img" style="width:70px;height:70px">
                 <i class="fa fa-caret-down" style="color:#f0eded"></i>
         </div>
         <div id="drop-down-container">
@@ -23,13 +23,13 @@
             <a href="https://github.com/ERetana2" class='dropdown-a'><i class="fa fa-github"></i> </a>
         </div>
             <a href="index.html"><i class="fa fa-fw fa-home"></i> Home</a>
-            <a href="index.html"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-            <a href="index.html"><i class="fa fa-fw fa-male"></i> Resume</a>
+            <a href="contact.html"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+            <a href="index.html"><i class="material-icons">computer</i> Resume</a>
     </nav>
 	<div id="content">
 		<h1 class="main-header" >Efrain's Portfolio <p id="welcome-msg">Welcome to my Portfolio.</p> </h1>
         <div class ="img-container">
-                <img src ="../../../images/me2.jpg" id ="main-img">
+                <img src ="/images/me2.jpg" id ="main-img">
             <div class ="overlay">
                 <div class="overlay-text"><strong><i class="fa fa-fw fa-male"></i>
                     Efrain Retana</strong>
@@ -38,9 +38,18 @@
             </div>
         </div>
         <div class="about-me-container">
+            
             <h1>About Me</h1>
             <div class="style-line"></div>
-            <p>Hello world
+            <p><i class="fa fa-fw fa-wrench"></i><strong>Skills:</strong> Java, Python, HTML, CSS, Javascript</p>
+            <p><i class="fa fa-fw fa-male"></i><strong>Experience:</strong> Team Leader at Whataburger, STEP Intern at google</p>
+            <div class = "about-me-info-container">
+                <p> I grew up in the small town of El Paso, In a hispanic society raised
+                    by mexican parents. With different cultural background and perspective, 
+                    I came to see the importance of technology, and gained love for computers.
+                    <strong> My main goal is to help the people...</strong>
+                </p>
+            </div>
         </div>
 	</div>
 </body>
