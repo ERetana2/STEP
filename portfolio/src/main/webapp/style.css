@@ -1,9 +1,109 @@
+body{
+    width: inherit;
+    height: inherit;
+}
+#menu-img{
+    transition: 300ms;
+    margin-left: 30px;
+    border-radius: 50px 50px 50px 50px;
+}
+#media-dropdown{
+    cursor: pointer;
+    color: rgba(12, 12, 12, 0.898);
+    padding-right: 13px;
+    border: none;
+    background: none;
+    outline: none;
+    display: block;
+}
+.drop-down:hover {
+    cursor: pointer;
+    transition: 300ms;
+    border-right: 5px solid green;
+    opacity: 0.7;
+    color: green;
+}
+#drop-down-container{
+    padding-left: 30px;
+    display: none; 
+}
+#drop-down-container .dropdown-a{
+    display: inline;
+}
+#drop-down-container .dropdown-a:hover{
+    cursor: pointer;
+    transition: 300ms;
+    border-right: none;
+    opacity: 0.7;
+    color: greenyellow
+}
+#nav-bar{
+    border-radius: 10px;
+    background-color: rgba(12, 12, 12, 0.898);
+    position: fixed;
+    padding-top: 30px;
+    height: 75%;
+    width: 150px;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+#nav-bar a {
+    transition: 300ms;
+    text-align: left;
+    text-decoration: none;
+    padding: 10px 8px 6px 16px;
+    margin-top: 15px;
+    font-size: 20px;
+    display: block;
+    color: #f0eded;
+}
+#nav-bar a:hover {
+    color: green;
+    border-right: 5px solid green;
+    transition: 300ms;
+}
 #content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#content h1{
+    background-color: rgba(12, 12, 12, 0.898);;
+    color: whitesmoke;
+    margin-left: 150px;
+    margin-right: 300px;
+    width:calc(100% - 170px);
+    text-align: center;
+    border-left: 7px solid green;
+    border-right: 7px solid green;
+    border-radius: 10px;
+    transition: 300ms;
+    padding-bottom: 5px;
+}
+#content h1:hover{
+    padding:10px 0px 10px 0px;
+    transition: 300ms;
+}
+#welcome-msg{
+    color:whitesmoke;
+    font-size: 16px;
+    text-align: center;
 }
 
 #greeting-container {
-  margin-top: 20px;
+    margin-top: 20px;
+    margin-left: 150px; 
+}
+footer{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 140px;
+    margin-right: auto;
+    margin-top: inherit;
+    padding: 1px 0px 1px 0px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: rgb(230, 230, 230);
+    background-color:rgba(12, 12, 12, 0.898);
 }
