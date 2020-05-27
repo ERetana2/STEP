@@ -29,6 +29,7 @@ function addRandomGreeting() {
 }
 */
 function photoDropdown(){
+    console.log('hello world');
     const mediaLinks = document.getElementById('drop-down-container');
     console.log(mediaLinks.style.display);
     if(mediaLinks.style.display == 'none'){
@@ -36,6 +37,4 @@ function photoDropdown(){
     }else{
        mediaLinks.style.display = 'none'; 
     }
-    
-    
 }
