@@ -28,10 +28,11 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 */
+function redirect(){
+    window.location.href="game.html";
+}
 function photoDropdown(){
-    console.log('hello world');
     const mediaLinks = document.getElementById('drop-down-container');
-    console.log(mediaLinks.style.display);
     if(mediaLinks.style.display == 'none'){
         mediaLinks.style.display = 'inline';
     }else{
