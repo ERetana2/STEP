@@ -12,7 +12,6 @@
 </head>
 
 <body>
-
 	<nav id="nav-bar">
 		<div class="drop-down">
 			<button onclick="photoDropdown()" id="media-dropdown"><img src="/images/me.jpg" id="menu-img" style="width:70px;height:70px">
@@ -23,10 +22,28 @@
             <a href="https://github.com/ERetana2" class='dropdown-a'><i class="fa fa-github"></i> </a>
         </div>
             <a href="index.html"><i class="fa fa-fw fa-home"></i> Home</a>
-            <a href="index.html"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+            <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
             <a href="index.html"><i class="material-icons">computer</i> Resume</a>
     </nav>
     <div id="content">
 		<h1 class="main-header" >Contact Info <p id="welcome-msg">Feel free to Reach out.</p> </h1>
+        <form class="contact-container">
+
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="firstname" placeholder="First name..">
+
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lastname" placeholder="Last name..">
+
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" name="email" placeholder="Enter e-mail..">
+
+            <label for="subject">Subject</label>
+            <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+
+            <input type="submit" value="Submit">
+
+        </form>
+    </div>
 
 </body>
