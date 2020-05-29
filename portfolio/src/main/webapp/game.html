@@ -3,15 +3,16 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>My Portfolio</title>
+	<title>Snake</title>
     <!-- Icons from W3-->
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
 </head>
 
 <body>
-
+    <script src="script.js"></script>
 	<nav id="nav-bar">
 		<div class="drop-down">
 			<button onclick="photoDropdown()" id="media-dropdown"><img src="/images/me.jpg" id="menu-img" style="width:70px;height:70px">
@@ -28,8 +29,7 @@
     <div id="content">
 		<h1 class="main-header" >Snake <p id="welcome-msg">...</p> </h1>
     </div>
-    <canvas id="snake"> </canvas>
+    <canvas id="snake" width="608" height="608"></canvas>
+    <script src="snake.js"></script>   
 </body>
-<script src="script.js"></script>
-<script src="snake.js"></script>
 </html>
