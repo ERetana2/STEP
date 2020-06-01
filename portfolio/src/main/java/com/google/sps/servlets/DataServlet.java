@@ -14,6 +14,9 @@
 package com.google.sps.servlets;
 
 import com.google.gson.Gson;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -26,15 +29,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    private List<String> msgs;
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        msgs = new ArrayList<>();
-
+        List<String> msgs = new ArrayList<>();
         String msg = convertToJsonUsingGson(msgs);
+
         response.setContentType("application/json");
         response.getWriter().println(msg);
     }
+
     private String convertToJsonUsingGson(List <String> msgs) {
         Gson gson = new Gson();
         String json = gson.toJson(msgs);
@@ -47,7 +50,7 @@ public class DataServlet extends HttpServlet {
     private String getParameter(HttpServletRequest request, String name, String defaultValue) {
         String value = request.getParameter(name);
         if (value == null) {
-        return defaultValue;
+            return defaultValue;
         }
         return value;
     }
@@ -55,14 +58,20 @@ public class DataServlet extends HttpServlet {
   @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get the input from the form.
-        String firstName = getParameter(request, "firstname","");
-        String lastName = getParameter(request, "lastname",""); 
-        String email = getParameter(request, "email",""); 
-        String subject = getParameter(request,"subject","");
+        String firstName = getParameter(request, "firstname", "");
+        String lastName = getParameter(request, "lastname", ""); 
+        String email = getParameter(request, "email", ""); 
+        String subject = getParameter(request, "subject", "");
 
+        Entity infoEntity = new Entity("Info");
+        infoEntity.setProperty("firstname", firstName);
+        infoEntity.setProperty("lastname",lastName);
+        infoEntity.setProperty("email", email);
+        infoEntity.setProperty("subject", subject);
 
-        // Respond with the result.
-        response.setContentType("text/html;");
-        response.getWriter().println(firstName + " " + lastName+ " " + email + " " + subject);
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.put(infoEntity);
+
+        response.sendRedirect("/contact.html");
     }
 }
