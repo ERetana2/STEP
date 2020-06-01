@@ -63,6 +63,6 @@ public class DataServlet extends HttpServlet {
 
         // Respond with the result.
         response.setContentType("text/html;");
-        response.getWriter().println(firstName + lastName + email + subject);
+        response.getWriter().println(firstName + " " + lastName+ " " + email + " " + subject);
     }
 }
