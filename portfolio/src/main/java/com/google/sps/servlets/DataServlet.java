@@ -55,8 +55,8 @@ public class DataServlet extends HttpServlet {
   @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get the input from the form.
-        String firstName = getParameter(request, "username","");
-        String lastName = getParameter(request, "password",""); 
+        String firstName = getParameter(request, "firstname","");
+        String lastName = getParameter(request, "lastname",""); 
         String email = getParameter(request, "email",""); 
         String subject = getParameter(request,"subject","");
 
