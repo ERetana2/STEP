@@ -122,14 +122,6 @@ function draw(){
     ctx.fillText(score,2*box,1.6*box);
 
 }
-//draw end screen
-function endScreen(){
-    cctx.fillStyle = "red";
-    ctx.font = "60px Changa one";
-    ctx.fillText,("GAME OVER",box * 5, box * 5);   
-
-}
-
 // call draw function every 100 ms
 
 let game = setInterval(draw,100);

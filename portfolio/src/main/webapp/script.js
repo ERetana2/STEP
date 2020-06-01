@@ -39,3 +39,8 @@ function photoDropdown(){
        mediaLinks.style.display = 'none'; 
     }
 }
+function getData() {
+    fetch('/data').then(response => response.json()).then((msg) => {
+        document.getElementById('more-info').innerText = msg;
+    });
+}
