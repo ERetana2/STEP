@@ -13,10 +13,14 @@
 // limitations under the License.
 package com.google.sps.servlets;
 
-import com.google.gson.Gson;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.Gson;
+import com.google.sps.data.Task;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -31,16 +35,31 @@ public class DataServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<String> msgs = new ArrayList<>();
-        String msg = convertToJsonUsingGson(msgs);
+        Query query = new Query("Task");
 
-        response.setContentType("application/json");
-        response.getWriter().println(msg);
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = datastore.prepare(query);
+
+        List<Task> tasks = new ArrayList<>();
+        for (Entity entity : results.asIterable()) {
+            String firstName = (String) entity.getProperty("firstname");
+            String lastName = (String) entity.getProperty("lastname");
+            String email = (String) entity.getProperty("email");
+            String subject = (String) entity.getProperty("subject");
+            
+            Task task = new Task(firstName,lastName,email,subject);
+            tasks.add(task);
+        }
+
+        Gson gson = new Gson();
+
+        response.setContentType("application/json;");
+        response.getWriter().println(gson.toJson(tasks));
     }
 
-    private String convertToJsonUsingGson(List <String> msgs) {
+    private String convertToJsonUsingGson(List <String> tasks) {
         Gson gson = new Gson();
-        String json = gson.toJson(msgs);
+        String json = gson.toJson(tasks);
         return json;
   }
   /**
@@ -63,7 +82,7 @@ public class DataServlet extends HttpServlet {
         String email = getParameter(request, "email", ""); 
         String subject = getParameter(request, "subject", "");
 
-        Entity infoEntity = new Entity("Info");
+        Entity infoEntity = new Entity("Task");
         infoEntity.setProperty("firstname", firstName);
         infoEntity.setProperty("lastname",lastName);
         infoEntity.setProperty("email", email);

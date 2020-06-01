@@ -12,19 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-function redirect(){
-    window.location.href="game.html";
-}
-function photoDropdown(){
-    const mediaLinks = document.getElementById('drop-down-container');
-    if(mediaLinks.style.display == 'none'){
-        mediaLinks.style.display = 'inline';
-    }else{
-       mediaLinks.style.display = 'none'; 
-    }
-}
-function getData() {
-    fetch('/data').then(response => response.json()).then((info) => {
-        document.getElementById('more-info').innerText = info;
-    });
+package com.google.sps.data;
+
+/** An item on a todo list. */
+public final class Task {
+
+  private final String firstName;
+  private final String lastName;
+  private final String email;
+  private final String subject;
+
+  public Task(String firstName, String lastName, String email, String subject) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.subject = subject;
+  }
 }

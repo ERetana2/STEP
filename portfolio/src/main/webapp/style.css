@@ -105,8 +105,6 @@ body{
     -webkit-transform:scale(30px,30px);
     background-color: green;
 }
-
-
 #content {
     position: relative;
 }
@@ -134,11 +132,6 @@ body{
     color:whitesmoke;
     font-size: 18px;
     text-align: center;
-}
-
-#greeting-container {
-    margin-top: 20px;
-    margin-left: 150px; 
 }
 #main-img{
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.679);
