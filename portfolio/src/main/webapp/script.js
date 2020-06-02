@@ -27,10 +27,9 @@ function getData() {
     fetch('/data').then(response => response.json()).then((tasks) => {
         tasks.forEach((task) =>{
             var currTask = document.createElement("p");
-            var userInfo = document.createTextNode("Name: "+ task.firstName + "-Last Name:" + task.lastName + "-Message =>" + task.subject);
+            var userInfo = document.createTextNode("Name:"+ task.firstName + "-\tLast Name:" + task.lastName + '-\tMessage = >' + task.subject);
             currTask.appendChild(userInfo);
             document.getElementById('more-info').appendChild(currTask);
         });
-        //document.getElementById('more-info').innerText = tasks;
     });
 }
