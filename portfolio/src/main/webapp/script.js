@@ -24,7 +24,13 @@ function photoDropdown(){
     }
 }
 function getData() {
-    fetch('/data').then(response => response.json()).then((info) => {
-        document.getElementById('more-info').innerText = info;
+    fetch('/data').then(response => response.json()).then((tasks) => {
+        tasks.forEach((task) =>{
+            var currTask = document.createElement("p");
+            var userInfo = document.createTextNode("Name: "+ task.firstName + "-Last Name:" + task.lastName + "-Message =>" + task.subject);
+            currTask.appendChild(userInfo);
+            document.getElementById('more-info').appendChild(currTask);
+        });
+        //document.getElementById('more-info').innerText = tasks;
     });
 }

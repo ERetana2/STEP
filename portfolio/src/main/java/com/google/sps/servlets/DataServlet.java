@@ -46,18 +46,18 @@ public class DataServlet extends HttpServlet {
             String lastName = (String) entity.getProperty("lastname");
             String email = (String) entity.getProperty("email");
             String subject = (String) entity.getProperty("subject");
-            
+
             Task task = new Task(firstName,lastName,email,subject);
             tasks.add(task);
         }
 
         Gson gson = new Gson();
 
-        response.setContentType("application/json;");
-        response.getWriter().println(gson.toJson(tasks));
+        response.setContentType("application/json");
+        response.getWriter().println(convertToJsonUsingGson(tasks));
     }
 
-    private String convertToJsonUsingGson(List <String> tasks) {
+    private String convertToJsonUsingGson(List <Task> tasks) {
         Gson gson = new Gson();
         String json = gson.toJson(tasks);
         return json;
@@ -74,7 +74,7 @@ public class DataServlet extends HttpServlet {
         return value;
     }
 
-  @Override
+   //@Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get the input from the form.
         String firstName = getParameter(request, "firstname", "");
@@ -82,14 +82,14 @@ public class DataServlet extends HttpServlet {
         String email = getParameter(request, "email", ""); 
         String subject = getParameter(request, "subject", "");
 
-        Entity infoEntity = new Entity("Task");
-        infoEntity.setProperty("firstname", firstName);
-        infoEntity.setProperty("lastname",lastName);
-        infoEntity.setProperty("email", email);
-        infoEntity.setProperty("subject", subject);
+        Entity taskEntity = new Entity("Task");
+        taskEntity.setProperty("firstname", firstName);
+        taskEntity.setProperty("lastname",lastName);
+        taskEntity.setProperty("email", email);
+        taskEntity.setProperty("subject", subject);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(infoEntity);
+        datastore.put(taskEntity);
 
         response.sendRedirect("/contact.html");
     }
