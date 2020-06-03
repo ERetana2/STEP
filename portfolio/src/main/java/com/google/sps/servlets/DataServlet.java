@@ -33,32 +33,39 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+    private static final Gson gson = new Gson();
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Query query = new Query("Task");
+        Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
 
         List<Task> tasks = new ArrayList<>();
+        int displayTasks = Integer.parseInt(getParameter(request, "quantity", ""));
         for (Entity entity : results.asIterable()) {
+            //Display x amount of entities taken from user input
             String firstName = (String) entity.getProperty("firstname");
             String lastName = (String) entity.getProperty("lastname");
             String email = (String) entity.getProperty("email");
             String subject = (String) entity.getProperty("subject");
 
-            Task task = new Task(firstName,lastName,email,subject);
-            tasks.add(task);
+            tasks.add(new Task(firstName,lastName,email,subject));
+            
+            if (displayTasks == 0){
+                break;
+            }
+            else{
+                displayTasks--;
+            }
         }
 
-        Gson gson = new Gson();
-
         response.setContentType("application/json");
-        response.getWriter().println(convertToJsonUsingGson(tasks));
+        response.getWriter().println(gson.toJson(tasks));
     }
 
     private String convertToJsonUsingGson(List <Task> tasks) {
-        Gson gson = new Gson();
         String json = gson.toJson(tasks);
         return json;
   }
@@ -74,20 +81,22 @@ public class DataServlet extends HttpServlet {
         return value;
     }
 
-   //@Override
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        long timestamp = System.currentTimeMillis();
+
         // Get the input from the form.
         String firstName = getParameter(request, "firstname", "");
         String lastName = getParameter(request, "lastname", ""); 
         String email = getParameter(request, "email", ""); 
         String subject = getParameter(request, "subject", "");
-
+        //Create new entities with contact properties
         Entity taskEntity = new Entity("Task");
         taskEntity.setProperty("firstname", firstName);
         taskEntity.setProperty("lastname",lastName);
         taskEntity.setProperty("email", email);
         taskEntity.setProperty("subject", subject);
-
+        //Insert entities into datastore then redirect user
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(taskEntity);
 
