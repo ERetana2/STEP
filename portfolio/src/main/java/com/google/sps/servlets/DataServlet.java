@@ -20,7 +20,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
-import com.google.sps.data.Task;
+import com.google.sps.data.Contact;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -31,45 +31,45 @@ import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
-public class DataServlet extends HttpServlet {
-
+public class DataServlet extends HttpServlet{
+    /**
+    * set of constants that are POST request parameter keys and Entity property keys
+    */
+    private static final String CONTACT = "Contact";
+    private static final String FIRST_NAME = "firstname";
+    private static final String LAST_NAME = "lastname";
+    private static final String EMAIL = "email";
+    private static final String SUBJECT = "subject";
+    private static final String TIMESTAMP = "timestamp";
     private static final Gson gson = new Gson();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
+        Query query = new Query(CONTACT).addSort(TIMESTAMP, SortDirection.DESCENDING);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
 
-        List<Task> tasks = new ArrayList<>();
-        int displayTasks = Integer.parseInt(getParameter(request, "quantity", ""));
+        int displayTasks = Integer.parseInt(request.getParameter("displayComments"));
+        List<Contact> contacts = new ArrayList<>();
         for (Entity entity : results.asIterable()) {
-            //Display x amount of entities taken from user input
-            String firstName = (String) entity.getProperty("firstname");
-            String lastName = (String) entity.getProperty("lastname");
-            String email = (String) entity.getProperty("email");
-            String subject = (String) entity.getProperty("subject");
-
-            tasks.add(new Task(firstName,lastName,email,subject));
-            
+            //Display x amounts of tasks
             if (displayTasks == 0){
                 break;
-            }
-            else{
+            }else{
                 displayTasks--;
             }
+            //create a new task from current entity
+            contacts.add(fromEntity(entity));
         }
-
         response.setContentType("application/json");
-        response.getWriter().println(gson.toJson(tasks));
+        response.getWriter().println(gson.toJson(contacts));
     }
-
-    private String convertToJsonUsingGson(List <Task> tasks) {
-        String json = gson.toJson(tasks);
+    private static String convertToJsonUsingGson(List <Contact> contacts) {
+        String json = gson.toJson(contacts);
         return json;
-  }
-  /**
+    }
+   /**
    * @return the request parameter, or the default value if the parameter
    *         was not specified by the client
    */
@@ -80,25 +80,34 @@ public class DataServlet extends HttpServlet {
         }
         return value;
     }
+    /**
+    * @return a new contact containing the properties of the passed entity in the parameter
+    */
+    public static Contact fromEntity(Entity entity){
+        String firstName = (String) entity.getProperty(FIRST_NAME);
+        String lastName = (String) entity.getProperty(LAST_NAME);
+        String email = (String) entity.getProperty(EMAIL);
+        String subject = (String) entity.getProperty(SUBJECT);
+        long timestamp = (long) entity.getProperty(TIMESTAMP);
+
+        return new Contact(firstName, lastName, email, subject,timestamp);
+    }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        long timestamp = System.currentTimeMillis();
-
-        // Get the input from the form.
-        String firstName = getParameter(request, "firstname", "");
-        String lastName = getParameter(request, "lastname", ""); 
-        String email = getParameter(request, "email", ""); 
-        String subject = getParameter(request, "subject", "");
+        String firstName = getParameter(request, FIRST_NAME, "");
+        String lastName = getParameter(request, LAST_NAME, ""); 
+        String email = getParameter(request, EMAIL, ""); 
+        String subject = getParameter(request, SUBJECT, "");
         //Create new entities with contact properties
-        Entity taskEntity = new Entity("Task");
-        taskEntity.setProperty("firstname", firstName);
-        taskEntity.setProperty("lastname",lastName);
-        taskEntity.setProperty("email", email);
-        taskEntity.setProperty("subject", subject);
+        Entity contactEntity = new Entity(CONTACT);
+        contactEntity.setProperty(FIRST_NAME, firstName);
+        contactEntity.setProperty(LAST_NAME,lastName);
+        contactEntity.setProperty(EMAIL, email);
+        contactEntity.setProperty(SUBJECT, subject);
         //Insert entities into datastore then redirect user
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(taskEntity);
+        datastore.put(contactEntity);
 
         response.sendRedirect("/contact.html");
     }

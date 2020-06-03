@@ -23,13 +23,21 @@ function photoDropdown(){
        mediaLinks.style.display = 'none'; 
     }
 }
+function refreshComments(){
+    const comments = document.getElementById("more-info");
+    console.log(comments.innerHTML);
+}
 function getData() {
-    fetch('/data').then(response => response.json()).then((tasks) => {
-        tasks.forEach((task) =>{
-            var currTask = document.createElement("p");
-            var userInfo = document.createTextNode("Name:"+ task.firstName + "-\tLast Name:" + task.lastName + '-\tMessage = >' + task.subject);
-            currTask.appendChild(userInfo);
-            document.getElementById('more-info').appendChild(currTask);
+    refreshComments();
+    var displayComments = document.getElementById("quantity").value;
+    var link = "/data?displayComments=" + displayComments;
+
+    fetch(link).then(response => response.json()).then((contacts) => {
+        contacts.forEach((contact) =>{
+            var currContact = document.createElement("p");
+            var userInfo = document.createTextNode("Name:"+ contact.firstName + "-Last Name:" + contact.lastName + '-Message = >' + contact.subject);
+            currContact.appendChild(userInfo);
+            document.getElementById('more-info').appendChild(currContact);
         });
     });
 }

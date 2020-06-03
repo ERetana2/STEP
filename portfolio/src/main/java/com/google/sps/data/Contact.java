@@ -14,18 +14,22 @@
 
 package com.google.sps.data;
 
+import com.google.appengine.api.datastore.Entity;
+
 /** An item on a todo list. */
-public final class Task {
+public final class Contact {
 
-  private final String firstName;
-  private final String lastName;
-  private final String email;
-  private final String subject;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final String subject;
+    private final long timestamp;
 
-  public Task(String firstName, String lastName, String email, String subject) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.subject = subject;
-  }
+    public Contact(String firstName, String lastName, String email, String subject, long timestamp) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.subject = subject;
+        this.timestamp = timestamp;
+    }
 }
