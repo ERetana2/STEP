@@ -315,18 +315,18 @@ input[type='submit']:hover {
   display: inline-block;
   position: relative;
 }
-#data-btn{
-    padding: 3px 15px 3px 15px;
-    border: 1px solid green;
-    background-color: whitesmoke; 
-    outline: none;
-    border-radius: 8px;
-    transition: 500ms;
+#data-btn {
+  padding: 3px 15px 3px 15px;
+  border: 1px solid green;
+  background-color: whitesmoke;
+  outline: none;
+  border-radius: 8px;
+  transition: 500ms;
 }
-#data-btn:hover{
-    background-color: green;
-    color:white;
-    outline: none;
-    transition: 500ms;
-    border-radius: 20px;
+#data-btn:hover {
+  background-color: green;
+  color: white;
+  outline: none;
+  transition: 500ms;
+  border-radius: 20px;
 }
