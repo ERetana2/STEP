@@ -334,7 +334,7 @@ label {
   display: inline-block;
   position: relative;
 }
-#data-btn {
+.data-btn {
   padding: 3px 15px 3px 15px;
   border: 1px solid green;
   background-color: whitesmoke;
@@ -342,7 +342,7 @@ label {
   border-radius: 8px;
   transition: 500ms;
 }
-#data-btn:hover {
+.data-btn:hover {
   background-color: green;
   color: white;
   outline: none;

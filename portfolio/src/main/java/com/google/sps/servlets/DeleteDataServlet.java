@@ -16,6 +16,7 @@ package com.google.sps.servlets;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
@@ -30,7 +31,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/delete-data")
 public class DeleteDataServlet extends HttpServlet {
   private static final String CONTACT = "Contact";
-  private static final String SUBJECT = "subject";
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -38,9 +38,11 @@ public class DeleteDataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    String subject = (String) (request.getParameter(SUBJECT));
+    for (Entity entity : results.asIterable()) {
+      Key commentEntityKey = entity.getKey();
+      datastore.delete(commentEntityKey);
+    }
 
-    Key commentEntityKey = KeyFactory.createKey(CONTACT, subject);
-    datastore.delete(commentEntityKey);
+    response.sendRedirect("/index.html");
   }
 }
