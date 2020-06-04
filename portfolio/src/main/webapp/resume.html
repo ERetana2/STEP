@@ -1,38 +1,42 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-	<meta charset="UTF-8">
-	<title>My Portfolio</title>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Portfolio</title>
     <!-- Icons from W3-->
-	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<script src="script.js"></script>
-</head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <script src="script.js"></script>
+  </head>
 
-<body>
-	<nav id="nav-bar">
-		<div class="drop-down">
-			<button onclick="photoDropdown()" id="media-dropdown"><img src="/images/me.jpg" id="menu-img" style="width:70px;height:70px">
-                <i class="fa fa-caret-down" style="color:#f0eded"></i>
-        </div>
-        <div id="drop-down-container">
-            <a href="https://www.linkedin.com/in/efrain-retana?trk=people-guest_people_search-card" class='dropdown-a'><i class="fa fa-linkedin"></i></a>
-            <a href="https://github.com/ERetana2" class='dropdown-a'><i class="fa fa-github"></i> </a>
-        </div>
-            <a href="index.html"><i class="fa fa-fw fa-home"></i> Home</a>
-            <a href="contact.html"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-            <a href="#"><i class="material-icons">computer</i> Resume</a>
+  <body>
+    <nav id="nav-bar">
+      <div class="drop-down">
+        <button onclick="photoDropdown()" id="media-dropdown" type="submit">
+          <img src="/images/me.jpg" id="menu-img" alt="Me.jpg" /><i class="fa fa-caret-down" id="img-caret"></i>
+        </button>
+      </div>
+      <div id="drop-down-container">
+        <a href="https://www.linkedin.com/in/efrain-retana?trk=people-guest_people_search-card" class="dropdown-a"
+          ><i class="fa fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/ERetana2" class="dropdown-a"><i class="fa fa-github"></i> </a>
+      </div>
+      <a href="index.html"><i class="fa fa-fw fa-home"></i> Home</a>
+      <a href="contact.html"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+      <a href="#"><i class="material-icons">computer</i> Resume</a>
+      <button onclick="redirect()" id="tog-btn" type="submit"><i class="fa fa-caret-right" type="submit"></i></button>
     </nav>
     <div id="content">
-		<h1 class="main-header" >Resume<p id="welcome-msg">Check out my Resume.</p> </h1>
-     </div>
-    <div class = "pdf-container">
-        <embed src="Retana_Efrain_Resume.pdf#tool" type ="application/pdf" class="pdf"/>
+      <h1 class="main-header">Resume</h1>
+      <p id="welcome-msg">Check out my Resume.</p>
     </div>
-</body>
+    <div class="pdf-container">
+      <embed title="Efrain Retana's Resume" src="Retana_Efrain_Resume.pdf#tool" type="application/pdf" class="pdf" />
+    </div>
+  </body>
+</html>
 <footer>
-    <p>Copyright 2020 &copy; by Efrain Retana </p>
-
+  <p>Copyright 2020 &copy; by Efrain Retana</p>
 </footer>

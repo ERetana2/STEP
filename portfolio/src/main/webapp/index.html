@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>My Portfolio</title>
@@ -12,31 +12,29 @@
   <body>
     <nav id="nav-bar">
       <div class="drop-down">
-        <button onclick="photoDropdown()" id="media-dropdown"></button
-        ><img src="/images/me.jpg" id="menu-img" style="width: 70px; height: 70px;" />
-        <i class="fa fa-caret-down" style="color: #f0eded;"></i>
+        <button onclick="photoDropdown()" id="media-dropdown" type="submit">
+          <img src="/images/me.jpg" id="menu-img" alt="Me.jpg" /><i class="fa fa-caret-down" id="img-caret"></i>
+        </button>
       </div>
       <div id="drop-down-container">
         <a href="https://www.linkedin.com/in/efrain-retana?trk=people-guest_people_search-card" class="dropdown-a"
-          ><i class="fa fa-linkedin"></i
-        ></a>
+          ><i class="fa fa-linkedin"></i>
+        </a>
         <a href="https://github.com/ERetana2" class="dropdown-a"><i class="fa fa-github"></i> </a>
       </div>
       <a href="#"><i class="fa fa-fw fa-home"></i> Home</a>
       <a href="contact.html"><i class="fa fa-fw fa-envelope"></i> Contact</a>
       <a href="resume.html"><i class="material-icons">computer</i> Resume</a>
-      <button onclick="redirect()" id="tog-btn"><i class="fa fa-caret-right" style="color: #f0eded;"></i></button>
+      <button onclick="redirect()" id="tog-btn" type="submit"><i class="fa fa-caret-right"></i></button>
     </nav>
     <div id="content">
-      <h1 class="main-header">
-        Efrain's Portfolio
-        <p id="welcome-msg">Welcome to my Portfolio.</p>
-      </h1>
+      <h1 class="main-header">Efrain's Portfolio</h1>
+      <p id="welcome-msg">Welcome to my Portfolio.</p>
       <div class="img-container">
-        <img src="/images/me2.jpg" id="main-img" />
+        <img src="/images/me2.jpg" id="main-img" alt="me2.jpg" />
         <div class="overlay">
           <div class="overlay-text">
-            <strong><i class="fa fa-fw fa-male"></i>Efrain Retana</strong>n
+            <i class="fa fa-fw fa-male"></i><strong>Efrain Retana</strong>
             <p>Sophomore attending the university of Texas at El Paso &#x21A6; Majoring in Computer Science.</p>
           </div>
         </div>
@@ -58,14 +56,14 @@
           <div id="more-info-contact">
             <label for="quantity">Comments:</label>
             <input type="number" id="quantity" name="quantity" />
-            <button onclick="getData()" id="data-btn">Display</button>
+            <button onclick="getData()" id="data-btn" type="submit">Display</button>
             <div id="more-info"></div>
           </div>
         </div>
       </div>
     </div>
   </body>
-  <footer>
-    <p>Copyright 2020 &copy; by Efrain Retana</p>
-  </footer>
 </html>
+<footer>
+  <p>Copyright 2020 &copy; by Efrain Retana</p>
+</footer>

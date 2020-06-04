@@ -7,6 +7,8 @@ body {
   height: inherit;
 }
 #menu-img {
+  width: 70px;
+  height: 70px;
   transition: 300ms;
   margin-left: 30px;
   border-radius: 50px 50px 50px 50px;
@@ -14,12 +16,17 @@ body {
 #media-dropdown {
   cursor: pointer;
   color: rgba(12, 12, 12, 0.898);
+  width: 130px;
+  height: 130px;
   padding-right: 15px;
   padding-bottom: 10px;
   border: none;
   background: none;
   outline: none;
   display: block;
+}
+#img-caret {
+  color: #f0eded;
 }
 .drop-down:hover {
   cursor: pointer;
@@ -30,11 +37,15 @@ body {
 }
 #drop-down-container {
   padding-left: 25px;
-  display: none;
+  display: inline;
 }
 #drop-down-container .dropdown-a {
-  padding: 0px 20px 0px 10px;
+  padding: 0px 10px 0px 10px;
   display: inline;
+}
+.dropdown-a {
+  font-size: 0;
+  color: transparent;
 }
 #drop-down-container .dropdown-a:hover {
   cursor: pointer;
@@ -84,6 +95,7 @@ body {
   width: 90px;
   height: 20px;
   border-radius: 5px;
+  color: #f0eded;
   background-color: rgba(12, 12, 12, 0.898);
   outline: none;
   border: 1px solid rgba(82, 82, 82, 0.9);
@@ -128,9 +140,16 @@ body {
   transition: 300ms;
 }
 #welcome-msg {
+  border-left: 7px solid green;
+  border-right: 7px solid green;
+  border-radius: 10px;
+  margin-left: 160px;
+  margin-right: 160px;
+  background-color: rgba(12, 12, 12, 0.898);
   color: whitesmoke;
   font-size: 18px;
   text-align: center;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.679);
 }
 #main-img {
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.679);
@@ -255,7 +274,7 @@ label {
   font-size: 20px;
 }
 
-input[type='submit'] {
+#input-btn[type='submit'] {
   background-color: rgb(109, 109, 109);
   border: none;
   border-radius: 40px;
@@ -264,7 +283,7 @@ input[type='submit'] {
   padding: 12px 20px;
 }
 
-input[type='submit']:hover {
+#input-btn[type='submit']:hover {
   background-color: green;
 }
 
@@ -329,4 +348,8 @@ input[type='submit']:hover {
   outline: none;
   transition: 500ms;
   border-radius: 20px;
+}
+/*Form*/
+#subject {
+  height: 200px;
 }
