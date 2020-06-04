@@ -23,13 +23,11 @@ public final class Contact {
     private final String lastName;
     private final String email;
     private final String subject;
-    private final long timestamp;
 
-    public Contact(String firstName, String lastName, String email, String subject, long timestamp) {
+    public Contact(String firstName, String lastName, String email, String subject) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.subject = subject;
-        this.timestamp = timestamp;
     }
 }

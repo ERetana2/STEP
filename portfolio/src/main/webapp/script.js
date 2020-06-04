@@ -24,8 +24,11 @@ function photoDropdown(){
     }
 }
 function refreshComments(){
-    const comments = document.getElementById("more-info");
-    console.log(comments.innerHTML);
+    const myNode = document.getElementById("more-info");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.lastChild);
+    }
+    console.log(myNode.firstChild);  
 }
 function getData() {
     refreshComments();
@@ -34,7 +37,7 @@ function getData() {
 
     fetch(link).then(response => response.json()).then((contacts) => {
         contacts.forEach((contact) =>{
-            var currContact = document.createElement("p");
+            var currContact = document.createElement('p');
             var userInfo = document.createTextNode("Name:"+ contact.firstName + "-Last Name:" + contact.lastName + '-Message = >' + contact.subject);
             currContact.appendChild(userInfo);
             document.getElementById('more-info').appendChild(currContact);

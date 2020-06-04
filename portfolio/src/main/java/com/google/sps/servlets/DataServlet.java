@@ -45,7 +45,7 @@ public class DataServlet extends HttpServlet{
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Query query = new Query(CONTACT).addSort(TIMESTAMP, SortDirection.DESCENDING);
+        Query query = new Query(CONTACT);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
@@ -88,9 +88,8 @@ public class DataServlet extends HttpServlet{
         String lastName = (String) entity.getProperty(LAST_NAME);
         String email = (String) entity.getProperty(EMAIL);
         String subject = (String) entity.getProperty(SUBJECT);
-        long timestamp = (long) entity.getProperty(TIMESTAMP);
 
-        return new Contact(firstName, lastName, email, subject,timestamp);
+        return new Contact(firstName, lastName, email, subject);
     }
 
     @Override
