@@ -52,3 +52,8 @@ function getData() {
     });
   });
 }
+function deleteData() {
+  const request = new Request('/delete-data', {method:'POS'});
+  fetch(request)
+.then(response => getData());
+}
