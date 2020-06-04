@@ -23,11 +23,30 @@ public final class Contact {
     private final String lastName;
     private final String email;
     private final String subject;
+    /**
+    * set of constants that are POST request parameter keys and Entity property keys
+    */
+    private static final String CONTACT = "Contact";
+    private static final String FIRST_NAME = "firstname";
+    private static final String LAST_NAME = "lastname";
+    private static final String EMAIL = "email";
+    private static final String SUBJECT = "subject";
 
-    public Contact(String firstName, String lastName, String email, String subject) {
+    private Contact(String firstName, String lastName, String email, String subject) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.subject = subject;
+    }
+    /**
+    * @return a new contact containing the properties of the passed entity in the parameter
+    */
+    public static Contact fromEntity(Entity entity){
+        String firstName = (String) entity.getProperty(FIRST_NAME);
+        String lastName = (String) entity.getProperty(LAST_NAME);
+        String email = (String) entity.getProperty(EMAIL);
+        String subject = (String) entity.getProperty(SUBJECT);
+
+        return new Contact(firstName, lastName, email, subject);
     }
 }

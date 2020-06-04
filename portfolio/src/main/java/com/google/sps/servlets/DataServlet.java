@@ -40,8 +40,7 @@ public class DataServlet extends HttpServlet{
     private static final String LAST_NAME = "lastname";
     private static final String EMAIL = "email";
     private static final String SUBJECT = "subject";
-    private static final String TIMESTAMP = "timestamp";
-    private static final Gson gson = new Gson();
+    private static final Gson GSON = new Gson();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -60,13 +59,13 @@ public class DataServlet extends HttpServlet{
                 displayTasks--;
             }
             //create a new task from current entity
-            contacts.add(fromEntity(entity));
+            contacts.add(Contact.fromEntity(entity));
         }
         response.setContentType("application/json");
-        response.getWriter().println(gson.toJson(contacts));
+        response.getWriter().println(GSON.toJson(contacts));
     }
     private static String convertToJsonUsingGson(List <Contact> contacts) {
-        String json = gson.toJson(contacts);
+        String json = GSON.toJson(contacts);
         return json;
     }
    /**
@@ -80,18 +79,6 @@ public class DataServlet extends HttpServlet{
         }
         return value;
     }
-    /**
-    * @return a new contact containing the properties of the passed entity in the parameter
-    */
-    public static Contact fromEntity(Entity entity){
-        String firstName = (String) entity.getProperty(FIRST_NAME);
-        String lastName = (String) entity.getProperty(LAST_NAME);
-        String email = (String) entity.getProperty(EMAIL);
-        String subject = (String) entity.getProperty(SUBJECT);
-
-        return new Contact(firstName, lastName, email, subject);
-    }
-
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String firstName = getParameter(request, FIRST_NAME, "");
