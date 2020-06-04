@@ -38,7 +38,7 @@ function getData() {
     fetch(link).then(response => response.json()).then((contacts) => {
         contacts.forEach((contact) =>{
             var currContact = document.createElement('p');
-            var userInfo = document.createTextNode("Name:"+ contact.firstName + "-Last Name:" + contact.lastName + '-Message = >' + contact.subject);
+            var userInfo = document.createTextNode("Name:"+ contact.firstName + "-  Last Name:" + contact.lastName + '-  Message = >' + contact.subject);
             currContact.appendChild(userInfo);
             document.getElementById('more-info').appendChild(currContact);
         });

@@ -312,10 +312,21 @@ input[type='submit']:hover {
   font-size: 18px;
   color: white;
   text-align: center;
+  display: inline-block;
   position: relative;
 }
 #data-btn{
-    padding: 5px 20px 5px 20px;
+    padding: 3px 15px 3px 15px;
     border: 1px solid green;
-
+    background-color: whitesmoke; 
+    outline: none;
+    border-radius: 8px;
+    transition: 500ms;
+}
+#data-btn:hover{
+    background-color: green;
+    color:white;
+    outline: none;
+    transition: 500ms;
+    border-radius: 20px;
 }
