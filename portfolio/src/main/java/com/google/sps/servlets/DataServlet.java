@@ -32,7 +32,9 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+
   private static final Gson GSON = new Gson();
+  private static final String NUM_CONTACTS_TO_DISPLAY = "numContactsToDisplay";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -41,7 +43,7 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    int numContactsToDisplay = Integer.parseInt(request.getParameter("numContactsToDisplay"));
+    int numContactsToDisplay = Integer.parseInt(request.getParameter(NUM_CONTACTS_TO_DISPLAY));
     List<Contact> contacts = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       // Display x amounts of contacts

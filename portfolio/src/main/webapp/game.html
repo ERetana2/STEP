@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Snake</title>
+    <!-- Icons from W3-->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  </head>
+
+  <body>
+    <script src="script.js"></script>
+    <nav id="nav-bar">
+      <div class="drop-down">
+        <button onclick="photoDropdown()" id="media-dropdown" type="submit">
+          <img src="/images/me.jpg" id="menu-img" alt="Me.jpg" /><i class="fa fa-caret-down" id="img-caret"></i>
+        </button>
+      </div>
+      <div id="drop-down-container">
+        <a href="https://www.linkedin.com/in/efrain-retana?trk=people-guest_people_search-card" class="dropdown-a"
+          ><i class="fa fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/ERetana2" class="dropdown-a"><i class="fa fa-github"></i> </a>
+      </div>
+      <a href="index.html" class="navbar-a"><i class="fa fa-fw fa-home"></i> Home</a>
+      <a href="contact.html" class="navbar-a"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+      <a href="resume.html" class="navbar-a"><i class="material-icons">computer</i> Resume</a>
+    </nav>
+    <div id="content">
+      <h1 class="main-header">
+        Snake
+      </h1>
+      <p id="welcome-msg">...</p>
+    </div>
+    <canvas id="snake" width="608" height="608"></canvas>
+    <script src="snake.js"></script>
+  </body>
+</html>
+<footer>
+  <p>Copyright 2020 &copy; by Efrain Retana</p>
+</footer>

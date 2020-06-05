@@ -15,6 +15,7 @@
 function redirect() {
   window.location.href = 'game.html';
 }
+
 function photoDropdown() {
   const mediaLinks = document.getElementById('drop-down-container');
   const imgCaret = document.getElementById('img-caret');
