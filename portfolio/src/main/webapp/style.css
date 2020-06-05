@@ -275,17 +275,19 @@ label {
   font-size: 20px;
 }
 
-#input-btn[type='submit'] {
+#input-btn {
   background-color: rgb(109, 109, 109);
   border: none;
   border-radius: 40px;
   cursor: pointer;
   color: whitesmoke;
   padding: 12px 20px;
+  transition:500ms;
 }
 
-#input-btn[type='submit']:hover {
+#input-btn:hover {
   background-color: green;
+  transition:500ms;
 }
 
 .contact-container {
@@ -329,11 +331,29 @@ label {
   background-size: 100% 100%;
 }
 #more-info {
+  padding: 5px 2px 5px 2px;
   font-size: 18px;
   color: white;
-  text-align: center;
-  display: inline-block;
+  text-align: left;
   position: relative;
+}
+#more-info-contact {
+  box-shadow: 2px 2px 3px black;
+  top: 30px;
+  position: relative;
+  border-radius: 10px;
+  padding: 10px 5px 10px 5px;
+  margin-left: 160px;
+  background-color: rgba(12, 12, 12, 0.898);
+  transition: 500ms; 
+}
+#more-info-contact:hover {
+  border-radius: 20px;
+  margin-left: 160px;
+  background-color: rgba(12, 12, 12, 0.898);
+  border-top: 3px solid green;
+  border-bottom: 3px solid green;
+  transition: 500ms;
 }
 .data-btn {
   padding: 3px 15px 3px 15px;

@@ -47,8 +47,8 @@ function getData() {
     contacts.forEach((contact) => {
       var currContact = document.createElement('li');
       var userInfo = document.createTextNode(
-          'Name:' + contact.firstName + '-  Last Name:' + contact.lastName +
-          '-  Message = >' + contact.subject);
+          contact.firstName + ' ' + contact.lastName + ' says ' +
+          contact.subject);
       currContact.appendChild(userInfo);
       document.getElementById('more-info').appendChild(currContact);
     });
