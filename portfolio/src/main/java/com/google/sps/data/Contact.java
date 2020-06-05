@@ -18,34 +18,44 @@ import com.google.appengine.api.datastore.Entity;
 
 /** An item on a todo list. */
 public final class Contact {
+  private final long id;
   private final String firstName;
   private final String lastName;
   private final String email;
   private final String subject;
+  private final long timestamp;
   /**
    * set of constants that are POST request parameter keys and Entity property keys
    */
-  private static final String CONTACT = "Contact";
-  private static final String FIRST_NAME = "firstname";
-  private static final String LAST_NAME = "lastname";
-  private static final String EMAIL = "email";
-  private static final String SUBJECT = "subject";
+  public static final String CONTACT = "Contact";
+  public static final String ID = "id";
+  public static final String FIRST_NAME = "firstname";
+  public static final String LAST_NAME = "lastname";
+  public static final String EMAIL = "email";
+  public static final String SUBJECT = "subject";
+  public static final String TIMESTAMP = "timestamp";
 
-  private Contact(String firstName, String lastName, String email, String subject) {
+  private Contact(
+      long id, String firstName, String lastName, String email, String subject, long timestamp) {
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.subject = subject;
+    this.timestamp = timestamp;
   }
+
   /**
    * @return a new contact containing the properties of the passed entity in the parameter
    */
   public static Contact fromEntity(Entity entity) {
+    long id = entity.getKey().getId();
     String firstName = (String) entity.getProperty(FIRST_NAME);
     String lastName = (String) entity.getProperty(LAST_NAME);
     String email = (String) entity.getProperty(EMAIL);
     String subject = (String) entity.getProperty(SUBJECT);
+    long timestamp = (long) entity.getProperty(TIMESTAMP);
 
-    return new Contact(firstName, lastName, email, subject);
+    return new Contact(id, firstName, lastName, email, subject, timestamp);
   }
 }

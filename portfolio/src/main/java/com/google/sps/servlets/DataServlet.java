@@ -32,19 +32,11 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  /**
-   * set of constants that are POST request parameter keys and Entity property keys
-   */
-  private static final String CONTACT = "Contact";
-  private static final String FIRST_NAME = "firstname";
-  private static final String LAST_NAME = "lastname";
-  private static final String EMAIL = "email";
-  private static final String SUBJECT = "subject";
   private static final Gson GSON = new Gson();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(CONTACT);
+    Query query = new Query(Contact.CONTACT).addSort(Contact.TIMESTAMP, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
@@ -52,16 +44,17 @@ public class DataServlet extends HttpServlet {
     int numContactsToDisplay = Integer.parseInt(request.getParameter("numContactsToDisplay"));
     List<Contact> contacts = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      // Display x amounts of tasks
+      // Display x amounts of contacts
       if (numContactsToDisplay == contacts.size()) {
         break;
       }
-      // create a new task from current entity
+      // create a new contact from current entity
       contacts.add(Contact.fromEntity(entity));
     }
     response.setContentType("application/json");
     response.getWriter().println(GSON.toJson(contacts));
   }
+
   /**
    * @return the request parameter, or the default value if the parameter
    *         was not specified by the client
@@ -73,18 +66,22 @@ public class DataServlet extends HttpServlet {
     }
     return value;
   }
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String firstName = getParameter(request, FIRST_NAME, "");
-    String lastName = getParameter(request, LAST_NAME, "");
-    String email = getParameter(request, EMAIL, "");
-    String subject = getParameter(request, SUBJECT, "");
-    // Create new entities with contact properties
-    Entity contactEntity = new Entity(CONTACT);
-    contactEntity.setProperty(FIRST_NAME, firstName);
-    contactEntity.setProperty(LAST_NAME, lastName);
-    contactEntity.setProperty(EMAIL, email);
-    contactEntity.setProperty(SUBJECT, subject);
+    // request form information from servlet
+    String firstName = getParameter(request, Contact.FIRST_NAME, "");
+    String lastName = getParameter(request, Contact.LAST_NAME, "");
+    String email = getParameter(request, Contact.EMAIL, "");
+    String subject = getParameter(request, Contact.SUBJECT, "");
+    long timestamp = System.currentTimeMillis();
+    // Create new entities with new contact properties
+    Entity contactEntity = new Entity(Contact.CONTACT);
+    contactEntity.setProperty(Contact.FIRST_NAME, firstName);
+    contactEntity.setProperty(Contact.LAST_NAME, lastName);
+    contactEntity.setProperty(Contact.EMAIL, email);
+    contactEntity.setProperty(Contact.SUBJECT, subject);
+    contactEntity.setProperty(Contact.TIMESTAMP, timestamp);
     // Insert entities into datastore then redirect user
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(contactEntity);

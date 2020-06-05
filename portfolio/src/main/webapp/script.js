@@ -30,12 +30,14 @@ function photoDropdown() {
     mediaLinks.style.display = 'inline';
   }
 }
+
 function refreshComments() {
   const infoNode = document.getElementById('more-info');
-  while (infoNode.firstChild) {
+  while (infoNode.firstChild != null) {
     infoNode.removeChild(infoNode.lastChild);
   }
 }
+
 function getData() {
   refreshComments();
   var numContactsToDisplay = document.getElementById('quantity').value;
@@ -43,7 +45,7 @@ function getData() {
 
   fetch(link).then(response => response.json()).then((contacts) => {
     contacts.forEach((contact) => {
-      var currContact = document.createElement('p');
+      var currContact = document.createElement('li');
       var userInfo = document.createTextNode(
           'Name:' + contact.firstName + '-  Last Name:' + contact.lastName +
           '-  Message = >' + contact.subject);
@@ -52,6 +54,7 @@ function getData() {
     });
   });
 }
+
 function deleteData() {
   const request = new Request('/delete-data', {method: 'POST'});
   fetch(request).then((results) => getData());
