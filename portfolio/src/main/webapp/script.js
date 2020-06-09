@@ -45,13 +45,14 @@ function getData() {
   var link = '/data?numContactsToDisplay=' + numContactsToDisplay
 
   fetch(link).then(response => response.json()).then((contacts) => {
+    const infoContainer = document.getElementById('more-info');
     contacts.forEach((contact) => {
       var currContact = document.createElement('li');
       var userInfo = document.createTextNode(
           contact.firstName + ' ' + contact.lastName + ' says ' +
           contact.subject);
       currContact.appendChild(userInfo);
-      document.getElementById('more-info').appendChild(currContact);
+      infoContainer.appendChild(currContact);
     });
   });
 }
@@ -59,4 +60,26 @@ function getData() {
 function deleteData() {
   const request = new Request('/delete-data', {method: 'POST'});
   fetch(request).then((results) => getData());
+}
+
+function onSignIn(googleUser) {
+  // Useful data for your client-side scripts:
+  var profile = googleUser.getBasicProfile();
+  console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+  console.log('Full Name: ' + profile.getName());
+  console.log('Given Name: ' + profile.getGivenName());
+  console.log('Family Name: ' + profile.getFamilyName());
+  console.log("Image URL: " + profile.getImageUrl());
+  console.log("Email: " + profile.getEmail());
+
+  // The ID token you need to pass to your backend:
+  var id_token = googleUser.getAuthResponse().id_token;
+  console.log("ID Token: " + id_token);
+}
+
+function userLogin() {
+  const request = new Request('/login', {method: 'GET'});
+  fetch(request).then(response => {
+      window.location.href = '/login';
+  });
 }

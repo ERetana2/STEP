@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>My Portfolio</title>
     <!-- Icons from W3-->
     <link rel="stylesheet" href="style.css" />
@@ -44,10 +47,12 @@
       </form>
     </div>
     <div id="more-info-contact">
+      <div id = "sign-on"><a href = "/login">Sign in</a> to access comments..</div>
+      <!--<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>--> 
       <label for="quantity">Comments:</label>
       <input type="number" id="quantity" name="quantity" />
-      <button onclick="getData()" class="data-btn" type="submit">Display</button>
-      <button onclick="deleteData()" class="data-btn" type="submit">Delete All</button>
+      <button onclick="userLogin()" class="data-btn" type="submit">Display</button>
+      <button onclick="userLogin()" class="data-btn" type="submit">Delete All</button>
       <div id="more-info"></div>
     </div>
   </body>
