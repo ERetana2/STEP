@@ -12,17 +12,51 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+function redirect() {
+  window.location.href = 'game.html';
+}
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+function photoDropdown() {
+  const mediaLinks = document.getElementById('drop-down-container');
+  const imgCaret = document.getElementById('img-caret');
+  if (mediaLinks.style.display == 'inline') {
+    imgCaret.style.transform = 'rotate(180deg)';
+    imgCaret.style.transition = '500ms';
+    imgCaret.style.color = 'whitesmoke';
+    mediaLinks.style.display = 'none';
+  } else {
+    imgCaret.style.transform = 'rotate(0deg)';
+    imgCaret.style.transition = '500ms';
+    imgCaret.style.color = 'green';
+    mediaLinks.style.display = 'inline';
+  }
+}
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+function refreshComments() {
+  const infoNode = document.getElementById('more-info');
+  while (infoNode.firstChild != null) {
+    infoNode.removeChild(infoNode.lastChild);
+  }
+}
+
+function getData() {
+  refreshComments();
+  var numContactsToDisplay = document.getElementById('quantity').value;
+  var link = '/data?numContactsToDisplay=' + numContactsToDisplay
+
+  fetch(link).then(response => response.json()).then((contacts) => {
+    contacts.forEach((contact) => {
+      var currContact = document.createElement('li');
+      var userInfo = document.createTextNode(
+          contact.firstName + ' ' + contact.lastName + ' says ' +
+          contact.subject);
+      currContact.appendChild(userInfo);
+      document.getElementById('more-info').appendChild(currContact);
+    });
+  });
+}
+
+function deleteData() {
+  const request = new Request('/delete-data', {method: 'POST'});
+  fetch(request).then((results) => getData());
 }
