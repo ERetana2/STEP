@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-
   private static final Gson GSON = new Gson();
   private static final String NUM_CONTACTS_TO_DISPLAY = "numContactsToDisplay";
 

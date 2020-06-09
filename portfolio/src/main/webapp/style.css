@@ -282,12 +282,12 @@ label {
   cursor: pointer;
   color: whitesmoke;
   padding: 12px 20px;
-  transition:500ms;
+  transition: 500ms;
 }
 
 #input-btn:hover {
   background-color: green;
-  transition:500ms;
+  transition: 500ms;
 }
 
 .contact-container {
@@ -345,7 +345,7 @@ label {
   padding: 10px 5px 10px 5px;
   margin-left: 160px;
   background-color: rgba(12, 12, 12, 0.898);
-  transition: 500ms; 
+  transition: 500ms;
 }
 #more-info-contact:hover {
   border-radius: 20px;
@@ -388,4 +388,36 @@ label {
 
 .contact span {
   flex-grow: 1;
+}
+/* Google Map*/
+#map {
+  transition: 500ms;
+  position: inherit;
+  margin-left: 160px;
+  margin-top: 40px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  border: 1px solid black;
+  height: 500px;
+  width: 90%;
+}
+#map:hover {
+  transition: 500ms;
+  border-radius: 50px;
+  box-shadow: 2px 2px 2px black;
+  border-top: 4px solid green;
+  border-bottom: 4px solid green;
+}
+.maps-title {
+  background-color: rgba(12, 12, 12, 0.898);
+  border-left: 5px solid green;
+  border-right: 5px solid green;
+  border-radius: 20px;
+  margin-left: 160px;
+  top: 30px;
+  padding: 10px 5px 10px 5px;
+  position: relative;
+  text-align: center;
+  color: whitesmoke;
+  font-size: 24px;
 }

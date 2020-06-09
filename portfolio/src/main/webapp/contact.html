@@ -2,9 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+    <meta name="google-signin-scope" content="profile email" />
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com" />
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1r6eSlYWoM1Z7-KOmt3sepkE15E89zVI"></script>
     <title>My Portfolio</title>
     <!-- Icons from W3-->
     <link rel="stylesheet" href="style.css" />
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="initMap()">
     <nav id="nav-bar">
       <div class="drop-down">
         <button onclick="photoDropdown()" id="media-dropdown" type="submit">
@@ -47,14 +48,16 @@
       </form>
     </div>
     <div id="more-info-contact">
-      <div id = "sign-on"><a href = "/login">Sign in</a> to access comments..</div>
-      <!--<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>--> 
+      <div id="sign-on"><a href="/login">Sign in</a> to access comments..</div>
+      <!--<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>-->
       <label for="quantity">Comments:</label>
       <input type="number" id="quantity" name="quantity" />
       <button onclick="userLogin()" class="data-btn" type="submit">Display</button>
       <button onclick="userLogin()" class="data-btn" type="submit">Delete All</button>
       <div id="more-info"></div>
     </div>
+    <h2 class="maps-title">Where I live.</h2>
+    <div id="map"></div>
   </body>
 </html>
 <footer>

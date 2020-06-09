@@ -16,8 +16,8 @@ package com.google.sps.servlets;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import java.io.IOException;
 import com.google.gson.Gson;
+import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-
-    private static final Gson GSON = new Gson();
+  private static final Gson GSON = new Gson();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -44,7 +43,6 @@ public class LoginServlet extends HttpServlet {
       String urlToRedirectToAfterUserLogsIn = "/contact.html";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
       response.sendRedirect(loginUrl);
-
     }
   }
 }
