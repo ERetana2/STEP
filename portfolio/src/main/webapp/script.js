@@ -45,6 +45,7 @@ function getData() {
   var link = '/data?numContactsToDisplay=' + numContactsToDisplay
 
   fetch(link).then(response => response.json()).then((contacts) => {
+    console.log('Hello World');
     const infoContainer = document.getElementById('more-info');
     contacts.forEach((contact) => {
       var currContact = document.createElement('li');
@@ -79,9 +80,14 @@ function onSignIn(googleUser) {
 }
 
 function userLogin() {
-  const request = new Request('/login', {method: 'GET'});
-  fetch(request).then(response => {
-    window.location.href = '/login';
+  fetch('/login').then((response) => response.json()).then((user) => {
+    if (user.isLoggedIn) {
+      document.getElementsByClassName('contact-container').style.display =
+          'block';
+    } else {
+      document.getElementsByClassName('contact-container').style.display =
+          'none';
+    }
   });
 }
 
