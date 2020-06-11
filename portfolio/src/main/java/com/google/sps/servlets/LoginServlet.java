@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 
       UserStatus userStatus = new UserStatus(true, loginMessage, userEmail);
       response.getWriter().println(GSON.toJson(userStatus));
-      
+
     } else {
       String urlToRedirectToAfterUserLogsIn = "/contact.html";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);

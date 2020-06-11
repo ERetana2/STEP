@@ -18,9 +18,24 @@ function redirect() {
 
 /** Hides social media content when image dropdown is toggled */
 function photoDropdown() {
+  /*
+const dropdown = document.getElementById("drop-down-container");
+const i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}*/
   const mediaLinks = document.getElementById('drop-down-container');
   const imgCaret = document.getElementById('img-caret');
-  if (mediaLinks.style.display == 'inline') {
+  if (mediaLinks.style.display == 'block') {
     imgCaret.style.transform = 'rotate(180deg)';
     imgCaret.style.transition = '300ms';
     imgCaret.style.color = 'whitesmoke';
@@ -29,7 +44,7 @@ function photoDropdown() {
     imgCaret.style.transform = 'rotate(0deg)';
     imgCaret.style.transition = '300ms';
     imgCaret.style.color = 'green';
-    mediaLinks.style.display = 'inline';
+    mediaLinks.style.display = 'block';
   }
 }
 
@@ -64,7 +79,7 @@ function getData() {
 function deleteData() {
   // upon request navigate to the delete servlet and remove all comments from
   // datastore
-  if (confirm("Do you wish to Delete all the comments ?")){
+  if (confirm('Do you wish to Delete all the comments ?')) {
     const request = new Request('/delete-data', {method: 'POST'});
     fetch(request).then((results) => getData());
   }
@@ -87,7 +102,7 @@ function userLogin() {
 
 /** Initialize a map utlizing google's Map API for web */
 function initMap() {
-    //colors for styles
+  // colors for styles
   const ORANGE = '#d59563';
   const OPAQUE_BLUE = '#263c3f';
   const DIM_GREEN = '#6b9a76';
@@ -100,7 +115,7 @@ function initMap() {
   const GREY_BLUE = '#2f3948';
   const BLACK_BLUE = '#17263c'
   const DARK_BABYBLUE = '#515c6d';
-  
+
   const markerPos = {lat: 31.770581604323954, lng: -106.50421142578125};
   const marker =
       new google.maps.Marker({position: markerPos, title: 'UTEP! My school.'});
@@ -131,11 +146,7 @@ function initMap() {
         elementType: 'labels.text.fill',
         stylers: [{color: DIM_GREEN}]
       },
-      {
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [{color: GREY}]
-      },
+      {featureType: 'road', elementType: 'geometry', stylers: [{color: GREY}]},
       {
         featureType: 'road',
         elementType: 'geometry.stroke',
