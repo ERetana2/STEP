@@ -291,8 +291,7 @@ label {
 }
 
 .contact-container {
-  display: none;
-  margin-left: 160px;
+  width: 100%;
   border-radius: 10px;
   background-color: rgba(12, 12, 12, 0.898);
   box-shadow: 3px 3px 5px black;
@@ -332,10 +331,11 @@ label {
   background-size: 100% 100%;
 }
 #more-info {
-  padding: 5px 2px 5px 2px;
+  padding: 10px 10px 10px 10px;
   font-size: 18px;
   color: white;
   text-align: left;
+  overflow: auto;
   position: relative;
 }
 #more-info-contact {
@@ -356,6 +356,9 @@ label {
   border-bottom: 3px solid green;
   transition: 500ms;
 }
+#comments {
+  margin-left: 10px;
+}
 .data-btn {
   padding: 3px 15px 3px 15px;
   border: 1px solid green;
@@ -373,20 +376,24 @@ label {
 }
 /*Form*/
 #form-overlay {
-  display: block;
+  display: none;
   overflow: hidden;
   margin-left: 160px;
-  margin-right: 160px;
   margin-bottom: 30px;
   padding: 10px 0px 10px 0px;
-  border-left: 5px solid green;
-  border-right: 5px solid green;
-  background-color: rgba(12, 12, 12, 0.898);
-  border-radius: 10px;
+  background-color: none;
   transition: 0.8s ease;
 }
 #form-overlay-text {
+  padding-top: 5px;
+  padding-bottom: 5px;
   text-align: center;
+  background-color: rgba(12, 12, 12, 0.898);
+  border-left: 5px solid green;
+  border-right: 5px solid green;
+  border-radius: 20px;
+  margin-left: 160px;
+  margin-right: 160px;
 }
 #form-overlay-text p {
   color: whitesmoke;

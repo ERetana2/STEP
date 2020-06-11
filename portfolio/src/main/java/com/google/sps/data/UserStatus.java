@@ -16,17 +16,13 @@ package com.google.sps.data;
 
 /** User status that returns log in*/
 public final class UserStatus {
-  private static boolean isLoggedIn;
-  private static String email;
-  private static String redirectURL;
+  private final boolean isLoggedIn;
+  private final String loginMessage;
+  private final String email;
 
-  public UserStatus(boolean isLoggedIn) {
+  public UserStatus(boolean isLoggedIn, String loginMessage, String email) {
     this.isLoggedIn = isLoggedIn;
-  }
-
-  public UserStatus(boolean isLoggedIn, String email, String redirectURL) {
-    this.isLoggedIn = isLoggedIn;
+    this.loginMessage = loginMessage;
     this.email = email;
-    this.redirectURL = redirectURL;
   }
 }

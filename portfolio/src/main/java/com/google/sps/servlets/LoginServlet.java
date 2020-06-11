@@ -31,29 +31,26 @@ public class LoginServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ArrayList<UserStatus> userStats = new ArrayList<>();
-    UserService userService = UserServiceFactory.getUserService();
+    response.setContentType("application/json");
 
+    UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/contact.html";
+      String urlToRedirectToAfterUserLogsOut = "/";
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      String loginMessage = "<p>Logged in as " + userEmail + ". "
+          + "Logout <a href=\"" + logoutUrl + "\">here</a>.</p>";
 
-      userStats.add(new UserStatus(true, userEmail, logoutUrl));
-
-      response.setContentType("application/json");
-      response.getWriter().println(GSON.toJson(userStats));
-      response.sendRedirect(logoutUrl);
-
+      UserStatus userStatus = new UserStatus(true, loginMessage, userEmail);
+      response.getWriter().println(GSON.toJson(userStatus));
     } else {
       String urlToRedirectToAfterUserLogsIn = "/contact.html";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      String loginMessage = "<p>Login to leave a comment!"
+          + " Login <a href=\"" + loginUrl + "\">here</a>.</p>";
 
-      userStats.add(new UserStatus(false));
-
-      response.setContentType("application/json");
-      response.getWriter().println(GSON.toJson(userStats));
-      response.sendRedirect(loginUrl);
+      UserStatus userStatus = new UserStatus(false, loginMessage, "");
+      response.getWriter().println(GSON.toJson(userStatus));
     }
   }
 }

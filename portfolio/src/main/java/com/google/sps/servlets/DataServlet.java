@@ -73,14 +73,12 @@ public class DataServlet extends HttpServlet {
     // request form information from servlet
     String firstName = getParameter(request, Contact.FIRST_NAME, "");
     String lastName = getParameter(request, Contact.LAST_NAME, "");
-    String email = getParameter(request, Contact.EMAIL, "");
     String subject = getParameter(request, Contact.SUBJECT, "");
     long timestamp = System.currentTimeMillis();
     // Create new entities with new contact properties
     Entity contactEntity = new Entity(Contact.CONTACT);
     contactEntity.setProperty(Contact.FIRST_NAME, firstName);
     contactEntity.setProperty(Contact.LAST_NAME, lastName);
-    contactEntity.setProperty(Contact.EMAIL, email);
     contactEntity.setProperty(Contact.SUBJECT, subject);
     contactEntity.setProperty(Contact.TIMESTAMP, timestamp);
     // Insert entities into datastore then redirect user

@@ -16,6 +16,7 @@ function redirect() {
   window.location.href = 'game.html';
 }
 
+/** Hides social media content when image dropdown is toggled */
 function photoDropdown() {
   const mediaLinks = document.getElementById('drop-down-container');
   const imgCaret = document.getElementById('img-caret');
@@ -39,11 +40,13 @@ function refreshComments() {
   }
 }
 
+/** Obtain comment data from datastore and display them on page */
 function getData() {
   refreshComments();
   var numContactsToDisplay = document.getElementById('quantity').value;
   var link = '/data?numContactsToDisplay=' + numContactsToDisplay
 
+  // fetch  the data and create a list containing the message of each contact
   fetch(link).then(response => response.json()).then((contacts) => {
     console.log('Hello World');
     const infoContainer = document.getElementById('more-info');
@@ -59,39 +62,32 @@ function getData() {
 }
 
 function deleteData() {
+  // upon request navigate to the delete servlet and remove all comments from
+  // datastore
   const request = new Request('/delete-data', {method: 'POST'});
   fetch(request).then((results) => getData());
 }
 
-function onSignIn(googleUser) {
-  // Useful data for your client-side scripts:
-  var profile = googleUser.getBasicProfile();
-  console.log(
-      'ID: ' + profile.getId());  // Don't send this directly to your server!
-  console.log('Full Name: ' + profile.getName());
-  console.log('Given Name: ' + profile.getGivenName());
-  console.log('Family Name: ' + profile.getFamilyName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail());
-
-  // The ID token you need to pass to your backend:
-  var id_token = googleUser.getAuthResponse().id_token;
-  console.log('ID Token: ' + id_token);
-}
-
+/**Allow the user to login, when logged in -> display contact form */
 function userLogin() {
-  fetch('/login').then((response) => response.json()).then((user) => {
-    if (user.isLoggedIn) {
-      document.getElementsByClassName('contact-container').style.display =
-          'block';
+  fetch('/login').then((response) => response.json()).then((currUser) => {
+    document.getElementById('form-overlay-text').innerHTML =
+        currUser.loginMessage;
+    if (currUser.isLoggedIn) {
+      document.getElementById('form-overlay').style.display = 'block';
     } else {
-      document.getElementsByClassName('contact-container').style.display =
-          'none';
+      document.getElementById('form-overlay').style.display = 'none';
+    }
+    // display delete all comments button to one specified user => admin
+    if (currUser.email == 'eretana@google.com') {
+      document.getElementById('delete-btn').style.display = 'inline';
+    } else {
+      document.getElementById('delete-btn').style.display = 'none';
     }
   });
 }
 
-
+/**Initialize a map utlizing google's Map API for web */
 function initMap() {
   var markerPos = {lat: 31.770581604323954, lng: -106.50421142578125};
   var marker =
@@ -100,6 +96,7 @@ function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 31.7869021, lng: -106.3127764},
     zoom: 15,
+    // set styles for dark mode
     styles: [
       {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
       {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
