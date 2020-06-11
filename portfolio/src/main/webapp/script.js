@@ -64,8 +64,10 @@ function getData() {
 function deleteData() {
   // upon request navigate to the delete servlet and remove all comments from
   // datastore
-  const request = new Request('/delete-data', {method: 'POST'});
-  fetch(request).then((results) => getData());
+  if (confirm("Do you wish to Delete all the comments ?")){
+    const request = new Request('/delete-data', {method: 'POST'});
+    fetch(request).then((results) => getData());
+  }
 }
 
 /** Allow the user to login, when logged in -> display contact form */
@@ -75,13 +77,9 @@ function userLogin() {
         currUser.loginMessage;
     if (currUser.isLoggedIn) {
       document.getElementById('form-overlay').style.display = 'block';
-    } else {
-      document.getElementById('form-overlay').style.display = 'none';
-    }
-    // display delete all comments button to one specified user => admin
-    if (currUser.email == 'eretana@google.com') {
       document.getElementById('delete-btn').style.display = 'inline';
     } else {
+      document.getElementById('form-overlay').style.display = 'none';
       document.getElementById('delete-btn').style.display = 'none';
     }
   });
@@ -89,6 +87,20 @@ function userLogin() {
 
 /** Initialize a map utlizing google's Map API for web */
 function initMap() {
+    //colors for styles
+  const ORANGE = '#d59563';
+  const OPAQUE_BLUE = '#263c3f';
+  const DIM_GREEN = '#6b9a76';
+  const GREY = '#38414e';
+  const DARKER_GREY = '#212a37';
+  const LIGHT_GREY = '#9ca5b3';
+  const LIGHT_BROWN = '#746855';
+  const DARK_BLUE = '#1f2835';
+  const BEIGE = '#f3d19c';
+  const GREY_BLUE = '#2f3948';
+  const BLACK_BLUE = '#17263c'
+  const DARK_BABYBLUE = '#515c6d';
+  
   const markerPos = {lat: 31.770581604323954, lng: -106.50421142578125};
   const marker =
       new google.maps.Marker({position: markerPos, title: 'UTEP! My school.'});
@@ -102,77 +114,77 @@ function initMap() {
       {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]}, {
         featureType: 'administrative.locality',
         elementType: 'labels.text.fill',
-        stylers: [{color: '#d59563'}]
+        stylers: [{color: ORANGE}]
       },
       {
         featureType: 'poi',
         elementType: 'labels.text.fill',
-        stylers: [{color: '#d59563'}]
+        stylers: [{color: ORANGE}]
       },
       {
         featureType: 'poi.park',
         elementType: 'geometry',
-        stylers: [{color: '#263c3f'}]
+        stylers: [{color: OPAQUE_BLUE}]
       },
       {
         featureType: 'poi.park',
         elementType: 'labels.text.fill',
-        stylers: [{color: '#6b9a76'}]
+        stylers: [{color: DIM_GREEN}]
       },
       {
         featureType: 'road',
         elementType: 'geometry',
-        stylers: [{color: '#38414e'}]
+        stylers: [{color: GREY}]
       },
       {
         featureType: 'road',
         elementType: 'geometry.stroke',
-        stylers: [{color: '#212a37'}]
+        stylers: [{color: DARKER_GREY}]
       },
       {
         featureType: 'road',
         elementType: 'labels.text.fill',
-        stylers: [{color: '#9ca5b3'}]
+        stylers: [{color: LIGHT_GREY}]
       },
       {
         featureType: 'road.highway',
         elementType: 'geometry',
-        stylers: [{color: '#746855'}]
+        stylers: [{color: LIGHT_BROWN}]
       },
       {
         featureType: 'road.highway',
         elementType: 'geometry.stroke',
-        stylers: [{color: '#1f2835'}]
+        stylers: [{color: DARK_BLUE}]
       },
       {
         featureType: 'road.highway',
         elementType: 'labels.text.fill',
-        stylers: [{color: '#f3d19c'}]
+        stylers: [{color: BEIGE}]
       },
       {
         featureType: 'transit',
         elementType: 'geometry',
-        stylers: [{color: '#2f3948'}]
+        stylers: [{color: GREY_BLUE}]
       },
       {
         featureType: 'transit.station',
         elementType: 'labels.text.fill',
-        stylers: [{color: '#d59563'}]
+        stylers: [{color: ORANGE}]
       },
       {
         featureType: 'water',
         elementType: 'geometry',
-        stylers: [{color: '#17263c'}]
+        stylers: [{color: BLACK_BLUE}]
       },
       {
         featureType: 'water',
         elementType: 'labels.text.fill',
-        stylers: [{color: '#515c6d'}]
+        stylers: [{color: DARK_BABYBLUE}]
       },
       {
         featureType: 'water',
         elementType: 'labels.text.stroke',
-        stylers: [{color: '#17263c'}]
+        stylers: [{color: DARK_BABYBLUE}]
       }
     ]
   });
