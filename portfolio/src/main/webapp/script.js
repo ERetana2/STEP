@@ -43,16 +43,16 @@ function refreshComments() {
 /** Obtain comment data from datastore and display them on page */
 function getData() {
   refreshComments();
-  var numContactsToDisplay = document.getElementById('quantity').value;
-  var link = '/data?numContactsToDisplay=' + numContactsToDisplay
+  const numContactsToDisplay = document.getElementById('quantity').value;
+  let link = '/data?numContactsToDisplay=' + numContactsToDisplay;
 
   // fetch  the data and create a list containing the message of each contact
   fetch(link).then(response => response.json()).then((contacts) => {
     console.log('Hello World');
     const infoContainer = document.getElementById('more-info');
     contacts.forEach((contact) => {
-      var currContact = document.createElement('li');
-      var userInfo = document.createTextNode(
+      const currContact = document.createElement('li');
+      const userInfo = document.createTextNode(
           contact.firstName + ' ' + contact.lastName + ' says ' +
           contact.subject);
       currContact.appendChild(userInfo);
@@ -68,7 +68,7 @@ function deleteData() {
   fetch(request).then((results) => getData());
 }
 
-/**Allow the user to login, when logged in -> display contact form */
+/** Allow the user to login, when logged in -> display contact form */
 function userLogin() {
   fetch('/login').then((response) => response.json()).then((currUser) => {
     document.getElementById('form-overlay-text').innerHTML =
@@ -87,13 +87,12 @@ function userLogin() {
   });
 }
 
-/**Initialize a map utlizing google's Map API for web */
+/** Initialize a map utlizing google's Map API for web */
 function initMap() {
-  var markerPos = {lat: 31.770581604323954, lng: -106.50421142578125};
-  var marker =
+  const markerPos = {lat: 31.770581604323954, lng: -106.50421142578125};
+  const marker =
       new google.maps.Marker({position: markerPos, title: 'UTEP! My school.'});
-  marker.setMap(map);
-  var map = new google.maps.Map(document.getElementById('map'), {
+  const map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 31.7869021, lng: -106.3127764},
     zoom: 15,
     // set styles for dark mode
@@ -177,18 +176,19 @@ function initMap() {
       }
     ]
   });
-  var contentString = '<div id="map-content">' +
+  const contentString = '<div id="map-content">' +
       '<div id="site-description">' +
       '</div>' +
       '<h1 id="firstHeading" class="firstHeading">UTEP</h1>' +
       '<div id="bodyContent">' +
       '<p>Attending UTEP since Fall 2018 as a computer science major' +
-      '. Utep is also recognized as one the most diverse schools along with successful' +
-      ' engineering programs.</p>'
+      '. Utep is also recognized as one the most diverse schools along ' +
+      'with successful engineering programs.</p>'
   '</div>' +
       '</div>';
 
-  var infowindow = new google.maps.InfoWindow({content: contentString});
+  const infowindow = new google.maps.InfoWindow({content: contentString});
+  marker.setMap(map);
 
   marker.addListener('click', function() {
     infowindow.open(map, marker);
