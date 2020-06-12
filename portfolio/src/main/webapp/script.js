@@ -18,21 +18,6 @@ function redirect() {
 
 /** Hides social media content when image dropdown is toggled */
 function photoDropdown() {
-  /*
-const dropdown = document.getElementById("drop-down-container");
-const i;
-
-for (i = 0; i < dropdown.length; i++) {
-  dropdown[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var dropdownContent = this.nextElementSibling;
-    if (dropdownContent.style.display === "block") {
-      dropdownContent.style.display = "none";
-    } else {
-      dropdownContent.style.display = "block";
-    }
-  });
-}*/
   const mediaLinks = document.getElementById('drop-down-container');
   const imgCaret = document.getElementById('img-caret');
   if (mediaLinks.style.display == 'block') {
@@ -59,10 +44,10 @@ function refreshComments() {
 function getData() {
   refreshComments();
   const numContactsToDisplay = document.getElementById('quantity').value;
-  let link = '/data?numContactsToDisplay=' + numContactsToDisplay;
+  const link = '/data?numContactsToDisplay=' + numContactsToDisplay;
 
   // fetch  the data and create a list containing the message of each contact
-  fetch(link).then(response => response.json()).then((contacts) => {
+  fetch(link).then((response) => response.json()).then((contacts) => {
     console.log('Hello World');
     const infoContainer = document.getElementById('more-info');
     contacts.forEach((contact) => {
@@ -113,7 +98,7 @@ function initMap() {
   const DARK_BLUE = '#1f2835';
   const BEIGE = '#f3d19c';
   const GREY_BLUE = '#2f3948';
-  const BLACK_BLUE = '#17263c'
+  const BLACK_BLUE = '#17263c';
   const DARK_BABYBLUE = '#515c6d';
 
   const markerPos = {lat: 31.770581604323954, lng: -106.50421142578125};
