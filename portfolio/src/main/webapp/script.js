@@ -191,8 +191,7 @@ function initMap() {
       '<div id="bodyContent">' +
       '<p>Attending UTEP since Fall 2018 as a computer science major' +
       '. Utep is also recognized as one the most diverse schools along ' +
-      'with successful engineering programs.</p>'
-  '</div>' +
+      'with successful engineering programs.</p></div>' +
       '</div>';
 
   const infowindow = new google.maps.InfoWindow({content: contentString});
