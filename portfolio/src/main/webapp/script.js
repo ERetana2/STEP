@@ -12,6 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//Set of Colors for map
+const DARKER_BLUE = '#242f3e';
+const ORANGE = '#d59563';
+const OPAQUE_BLUE = '#263c3f';
+const DIM_GREEN = '#6b9a76';
+const GREY = '#38414e';
+const DARKER_GREY = '#212a37';
+const LIGHT_GREY = '#9ca5b3';
+const LIGHT_BROWN = '#746855';
+const DARK_BLUE = '#1f2835';
+const BEIGE = '#f3d19c';
+const GREY_BLUE = '#2f3948';
+const BLACK_BLUE = '#17263c';
+const DARK_BABYBLUE = '#515c6d';
+
+/** When clicking on home page nav bar bottom button, redirect to snake game */
 function redirect() {
   window.location.href = 'game.html';
 }
@@ -88,18 +104,6 @@ function userLogin() {
 /** Initialize a map utlizing google's Map API for web */
 function initMap() {
   // colors for styles
-  const ORANGE = '#d59563';
-  const OPAQUE_BLUE = '#263c3f';
-  const DIM_GREEN = '#6b9a76';
-  const GREY = '#38414e';
-  const DARKER_GREY = '#212a37';
-  const LIGHT_GREY = '#9ca5b3';
-  const LIGHT_BROWN = '#746855';
-  const DARK_BLUE = '#1f2835';
-  const BEIGE = '#f3d19c';
-  const GREY_BLUE = '#2f3948';
-  const BLACK_BLUE = '#17263c';
-  const DARK_BABYBLUE = '#515c6d';
 
   const markerPos = {lat: 31.770581604323954, lng: -106.50421142578125};
   const marker =
@@ -109,9 +113,9 @@ function initMap() {
     zoom: 15,
     // set styles for dark mode
     styles: [
-      {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-      {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-      {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]}, {
+      {elementType: 'geometry', stylers: [{color: DARKER_BLUE }]},
+      {elementType: 'labels.text.stroke', stylers: [{color: DARKER_BLUE}]},
+      {elementType: 'labels.text.fill', stylers: [{color: LIGHT_BROWN}]}, {
         featureType: 'administrative.locality',
         elementType: 'labels.text.fill',
         stylers: [{color: ORANGE}]
