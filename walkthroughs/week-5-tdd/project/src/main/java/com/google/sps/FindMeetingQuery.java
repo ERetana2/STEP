@@ -58,4 +58,54 @@ public final class FindMeetingQuery {
     }
     return availableTimes;
   }
+  public Collection<TimeRange> queryAllAttendees(Collection<Event> events, MeetingRequest request) {
+    ArrayList<TimeRange> availableTimes = new ArrayList<>();
+    ArrayList<TimeRange> unavailableTimes = new ArrayList<>();
+    ArrayList<String>  allAttendees = new ArrayList<>(request.getAttendees());
+    allAttendees.addAll(request.getOptionalAttendees());
+    int meetingStartTime = TimeRange.START_OF_DAY;
+    long duration = request.getDuration();
+    System.out.println("AllAttendees size: " + allAttendees.size());
+    //check edge case when there is a meeting request with no people
+    if(allAttendees.isEmpty()){
+        return Arrays.asList(TimeRange.WHOLE_DAY);
+    }
+    //base case to check if there are no optional attendees
+    if(request.getOptionalAttendees().isEmpty()){
+      return query(events, request);
+    }
+    //Create a list of times that are unavailable for request
+    for (Event event: events){
+        System.out.println(event.getWhen().toString());
+      if(!Collections.disjoint(event.getAttendees(), request.getAttendees())){
+        if(!Collections.disjoint(event.getAttendees(), request.getOptionalAttendees())){
+          unavailableTimes.add(event.getWhen());
+        }
+      }
+    }
+    System.out.println();
+    //Check if there are no available times for optional and required attendees
+    if(unavailableTimes.isEmpty()){
+      return query(events, request);
+    }
+    //Sort the list of unavailable times and check for valid available time
+    Collections.sort(unavailableTimes, TimeRange.ORDER_BY_START);
+
+    for(TimeRange time: unavailableTimes){
+      if(time.contains(meetingStartTime)){
+        meetingStartTime = time.end();
+      }else{
+        if((time.start() - meetingStartTime) >= duration){
+          availableTimes.add(TimeRange.fromStartEnd(meetingStartTime, time.start(), false));
+        }
+        if(meetingStartTime > time.end()){break;}
+        meetingStartTime = time.end();
+      }
+    }
+    //Append end of day available times
+    if (TimeRange.END_OF_DAY - meetingStartTime >= duration) {
+      availableTimes.add(TimeRange.fromStartEnd(meetingStartTime, TimeRange.END_OF_DAY, true));
+    }
+    return availableTimes;
+  }
 }
