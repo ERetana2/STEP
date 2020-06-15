@@ -14,10 +14,48 @@
 
 package com.google.sps;
 
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    ArrayList<TimeRange> availableTimes = new ArrayList<>();
+    ArrayList<TimeRange> unavailableTimes = new ArrayList<>();
+    int meetingStartTime = TimeRange.START_OF_DAY;
+    long duration = request.getDuration();
+
+    //check edge case when there is a meeting request with no people
+    if(request.getAttendees().isEmpty()){
+        return Arrays.asList(TimeRange.WHOLE_DAY);
+    }
+    //Create a list of times that are unavailable for request
+    for (Event event: events){
+      if(!Collections.disjoint(event.getAttendees(), request.getAttendees())){
+        unavailableTimes.add(event.getWhen());
+      }
+    }
+    //Sort the list of unavailable times and check for valid available time
+    Collections.sort(unavailableTimes, TimeRange.ORDER_BY_START);
+
+    for(TimeRange time: unavailableTimes){
+      if(time.contains(meetingStartTime)){
+        meetingStartTime = time.end();
+      }else{
+        if((time.start() - meetingStartTime) >= duration){
+          availableTimes.add(TimeRange.fromStartEnd(meetingStartTime, time.start(), false));
+        }
+        if(meetingStartTime > time.end()){break;}
+        meetingStartTime = time.end();
+      }
+    }
+    //Append end of day available times
+    if (TimeRange.END_OF_DAY - meetingStartTime >= duration) {
+      availableTimes.add(TimeRange.fromStartEnd(meetingStartTime, TimeRange.END_OF_DAY, true));
+    }
+    return availableTimes;
   }
 }
