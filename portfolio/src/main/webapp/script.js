@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Set of Colors for map
+//Set of Colors for map
 const DARKER_BLUE = '#242f3e';
 const ORANGE = '#d59563';
 const OPAQUE_BLUE = '#263c3f';
@@ -113,7 +113,7 @@ function initMap() {
     zoom: 15,
     // set styles for dark mode
     styles: [
-      {elementType: 'geometry', stylers: [{color: DARKER_BLUE}]},
+      {elementType: 'geometry', stylers: [{color: DARKER_BLUE }]},
       {elementType: 'labels.text.stroke', stylers: [{color: DARKER_BLUE}]},
       {elementType: 'labels.text.fill', stylers: [{color: LIGHT_BROWN}]}, {
         featureType: 'administrative.locality',
