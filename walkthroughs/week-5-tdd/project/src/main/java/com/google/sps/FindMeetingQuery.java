@@ -95,14 +95,6 @@ public final class FindMeetingQuery {
     if (TimeRange.END_OF_DAY - meetingStartTime >= duration) {
       availableTimes.add(TimeRange.fromStartEnd(meetingStartTime, TimeRange.END_OF_DAY, true));
     }
-    // Check for overlap in available times -> if there is remove time from available
-    for(TimeRange validTime: availableTimes){
-      for (TimeRange notValidTime: unavailableTimes) {
-        if (validTime.overlaps(notValidTime)) {
-          availableTimes.remove(validTime);
-        }
-      }
-    }
     return availableTimes;
   }
 }
