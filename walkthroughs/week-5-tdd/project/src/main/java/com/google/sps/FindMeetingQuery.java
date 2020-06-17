@@ -29,8 +29,8 @@ public final class FindMeetingQuery {
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     ArrayList<TimeRange> empty = new ArrayList<>();
-    ArrayList<String> attendees = new ArrayList<String>(request.getAttendees()); // list for mandatory attendees
-    ArrayList<String> allAttendees = new ArrayList<String>(attendees);
+    ArrayList<String> mandatoryAttendees = new ArrayList<String>(request.getAttendees()); 
+    ArrayList<String> allAttendees = new ArrayList<String>(mandatoryAttendees);
     allAttendees.addAll(request.getOptionalAttendees());
     // return whole day if there are no attendees
     if (allAttendees.isEmpty()) {
@@ -45,16 +45,14 @@ public final class FindMeetingQuery {
         availableTimesForAttendees(events, allAttendees, request.getDuration()));
     if(!availableTimes.isEmpty()){
       return availableTimes;
-    }
-    else{
-      availableTimes = new ArrayList<TimeRange>(availableTimesForAttendees(events, attendees, request.getDuration()));
-    }
-    // If the request has no attendees after optional attendees are excluded, return an empty collection.
-    if(!attendees.isEmpty()){
-      return availableTimes;
-    }
-    else{
-      return empty;
+    }else{
+      // If the request has no attendees after optional attendees are excluded, return an empty collection.
+      if(!mandatoryAttendees.isEmpty()){
+        availableTimes = new ArrayList<TimeRange>(availableTimesForAttendees(events, mandatoryAttendees, request.getDuration()));
+        return availableTimes;
+      }else{
+        return empty;
+      }
     }
   }
   /**
@@ -86,7 +84,7 @@ public final class FindMeetingQuery {
           availableTimes.add(TimeRange.fromStartEnd(meetingStartTime, time.start(), false));
         }
         if(meetingStartTime > time.end()){
-          break;
+          continue;
         }
         meetingStartTime = time.end();
       }
