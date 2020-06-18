@@ -125,8 +125,9 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void everyAttendeeIsConsideredV2() {
-    // Have each person have different events. We should see two options because each person has
-    // split the restricted times.
+    // Have each person have different events and 1 optional attendee with an all day event.
+    // We should see three options because each person has 3 gaps and optional attendee will not be
+    // counted.
     //
     // Events  :       |--A--|     |--B--|
     // Optional: |--------------C--------------|
@@ -151,7 +152,6 @@ public final class FindMeetingQueryTest {
             TimeRange.fromStartEnd(TIME_0930AM, TimeRange.END_OF_DAY, true));
 
     Assert.assertEquals(expected, actual);
-    System.out.println();
   }
 
   @Test
@@ -160,9 +160,9 @@ public final class FindMeetingQueryTest {
     // split the restricted times.
     //
     // Events  :       |--A--|     |--B--|
-    // Optional: |--------------C--------------|
+    // Optional:          |--C--|
     // Day     : |-----------------------------|
-    // Options : |--1--|     |--2--|     |--3--|
+    // Options : |--1--|                 |--3--|
 
     Collection<Event> events = Arrays.asList(
         new Event("Event 1", TimeRange.fromStartDuration(TIME_0800AM, DURATION_30_MINUTES),
@@ -363,10 +363,12 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void noneMandatory(){
-    //Have no mandatory attendees, Just 2 optional
+    //Have no mandatory attendees, Just 2 optional with gaps
     //
     // Events  :
-    // Day     : |--------------------|
+    // Optional: |---A---|    |--B--|
+    // Day     : |-------------------------|
+    // Options :         |----|     |------|
 
     Collection<Event> events = Arrays.asList(
         new Event("Event 1", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_0830AM, false),
@@ -388,10 +390,12 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void noneMandatoryNoGaps(){
-    //Have no mandatory attendees, Just 2 optional
+    //Have no mandatory attendees, Just 2 optional with no gaps(no events) during the day
     //
     // Events  :
-    // Day     : |--------------------|
+    // Optional: 
+    // Day     : |-------------------------|
+    // Options :         
 
     Collection<Event> events = Collections.emptySet();
 

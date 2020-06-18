@@ -26,9 +26,25 @@ public final class FindMeetingQuery {
    * @param events a collection of events going on during the day
    * @param request user created request for an event that includes Time and attendees
    * @return a list of available times to schedule a meeting
+   * Scenario 1: When there is no mandatory attendees and there is optional attendees with no gaps
+   * return empty
+   * Scenario 2: When there is no mandatory attendees and there is optional attendees with gaps
+   * return available times around gaps for optional attendees
+   * Scenario 3: When there is no mandatory attendees and there is no optional attendees 
+   * return the whole day
+   * Scenario 4: When there is mandatory attendees and there is no optional attendees 
+   * return available times for mandatory attendees
+   * Scenario 5: When there is mandatory attendees and there is optional attendees with gaps
+   * return times available for both -> if there are no times available for both return
+   * available times for mandatory attendees
+   * Scenario 6: When there is mandatory attendees with no events and no optional attendees
+   * return the whole day
+   * Scenario 7: When there is mandatory attendees with no events and optional attendees with events
+   * return gaps in optional attendees
+   * Scenario 8: When there is mandatory attendees with no events and optional attendees with events
+   * return the whole day
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    ArrayList<TimeRange> empty = new ArrayList<>();
     ArrayList<String> mandatoryAttendees = new ArrayList<String>(request.getAttendees()); 
     ArrayList<String> allAttendees = new ArrayList<String>(mandatoryAttendees);
     allAttendees.addAll(request.getOptionalAttendees());
@@ -38,7 +54,7 @@ public final class FindMeetingQuery {
     } 
     //return empty If there are no events during day(gaps), but there are optional attendees
     if(events.isEmpty() && !request.getOptionalAttendees().isEmpty()){
-      return empty;
+      return new ArrayList<TimeRange>();
     }
     // When there are no available times with optional attendees, set available times for mandatory employees only
     ArrayList<TimeRange> availableTimes = new ArrayList<TimeRange>(
@@ -48,12 +64,10 @@ public final class FindMeetingQuery {
     }else{
       // If the request has no attendees after optional attendees are excluded, return an empty collection.
       if(!mandatoryAttendees.isEmpty()){
-        availableTimes = new ArrayList<TimeRange>(availableTimesForAttendees(events, mandatoryAttendees, request.getDuration()));
-        return availableTimes;
-      }else{
-        return empty;
+    	return new ArrayList<TimeRange>(availableTimesForAttendees(events, mandatoryAttendees, request.getDuration()));
       }
     }
+    return new ArrayList<TimeRange>();
   }
   /**
    * @param events a collection of events going on during the day
@@ -83,10 +97,9 @@ public final class FindMeetingQuery {
         if((time.start() - meetingStartTime) >= duration){
           availableTimes.add(TimeRange.fromStartEnd(meetingStartTime, time.start(), false));
         }
-        if(meetingStartTime > time.end()){
-          continue;
+        if(meetingStartTime < time.end()){
+          meetingStartTime = time.end();
         }
-        meetingStartTime = time.end();
       }
     }
     //Append end of day available times
