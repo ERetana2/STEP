@@ -390,14 +390,18 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void noneMandatoryNoGaps(){
-    //Have no mandatory attendees, Just 2 optional with no gaps(no events) during the day
+    //Have no mandatory attendees, Just 2 optional with no gaps during the day
     //
     // Events  :
     // Optional: 
     // Day     : |-------------------------|
     // Options :         
 
-    Collection<Event> events = Collections.emptySet();
+    Collection<Event> events = Arrays.asList(
+        new Event("Event 1", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true),
+            Arrays.asList(PERSON_A)),
+        new Event("Event 2", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true),
+            Arrays.asList(PERSON_B)));
 
     MeetingRequest request = new MeetingRequest(new ArrayList<>(), DURATION_30_MINUTES);
     request.addOptionalAttendee(PERSON_A);

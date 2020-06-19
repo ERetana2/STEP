@@ -23,9 +23,6 @@ import java.util.List;
 
 public final class FindMeetingQuery {
   /**
-   * @param events a collection of events going on during the day
-   * @param request user created request for an event that includes Time and attendees
-   * @return a list of available times to schedule a meeting
    * Scenario 1: When there is no mandatory attendees and there is optional attendees with no gaps
    * return empty
    * Scenario 2: When there is no mandatory attendees and there is optional attendees with gaps
@@ -37,12 +34,9 @@ public final class FindMeetingQuery {
    * Scenario 5: When there is mandatory attendees and there is optional attendees with gaps
    * return times available for both -> if there are no times available for both return
    * available times for mandatory attendees
-   * Scenario 6: When there is mandatory attendees with no events and no optional attendees
-   * return the whole day
-   * Scenario 7: When there is mandatory attendees with no events and optional attendees with events
-   * return gaps in optional attendees
-   * Scenario 8: When there is mandatory attendees with no events and optional attendees with events
-   * return the whole day
+   * @param events a collection of events going on during the day
+   * @param request user created request for an event that includes Time and attendees
+   * @return a list of available times to schedule a meeting
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     ArrayList<String> mandatoryAttendees = new ArrayList<String>(request.getAttendees()); 
