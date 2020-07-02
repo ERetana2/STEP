@@ -12,23 +12,40 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Set of Colors for map
+const DARKER_BLUE = '#242f3e';
+const ORANGE = '#d59563';
+const OPAQUE_BLUE = '#263c3f';
+const DIM_GREEN = '#6b9a76';
+const GREY = '#38414e';
+const DARKER_GREY = '#212a37';
+const LIGHT_GREY = '#9ca5b3';
+const LIGHT_BROWN = '#746855';
+const DARK_BLUE = '#1f2835';
+const BEIGE = '#f3d19c';
+const GREY_BLUE = '#2f3948';
+const BLACK_BLUE = '#17263c';
+const DARK_BABYBLUE = '#515c6d';
+
+/** When clicking on home page nav bar bottom button, redirect to snake game */
 function redirect() {
   window.location.href = 'game.html';
 }
 
+/** Hides social media content when image dropdown is toggled */
 function photoDropdown() {
   const mediaLinks = document.getElementById('drop-down-container');
   const imgCaret = document.getElementById('img-caret');
-  if (mediaLinks.style.display == 'inline') {
+  if (mediaLinks.style.display == 'block') {
     imgCaret.style.transform = 'rotate(180deg)';
-    imgCaret.style.transition = '500ms';
+    imgCaret.style.transition = '300ms';
     imgCaret.style.color = 'whitesmoke';
     mediaLinks.style.display = 'none';
   } else {
     imgCaret.style.transform = 'rotate(0deg)';
-    imgCaret.style.transition = '500ms';
+    imgCaret.style.transition = '300ms';
     imgCaret.style.color = 'green';
-    mediaLinks.style.display = 'inline';
+    mediaLinks.style.display = 'block';
   }
 }
 
@@ -39,24 +56,152 @@ function refreshComments() {
   }
 }
 
+/** Obtain comment data from datastore and display them on page */
 function getData() {
   refreshComments();
-  var numContactsToDisplay = document.getElementById('quantity').value;
-  var link = '/data?numContactsToDisplay=' + numContactsToDisplay
+  const numContactsToDisplay = document.getElementById('quantity').value;
+  const link = '/data?numContactsToDisplay=' + numContactsToDisplay;
 
-  fetch(link).then(response => response.json()).then((contacts) => {
+  // fetch  the data and create a list containing the message of each contact
+  fetch(link).then((response) => response.json()).then((contacts) => {
+    console.log('Hello World');
+    const infoContainer = document.getElementById('more-info');
     contacts.forEach((contact) => {
-      var currContact = document.createElement('li');
-      var userInfo = document.createTextNode(
+      const currContact = document.createElement('li');
+      const userInfo = document.createTextNode(
           contact.firstName + ' ' + contact.lastName + ' says ' +
           contact.subject);
       currContact.appendChild(userInfo);
-      document.getElementById('more-info').appendChild(currContact);
+      infoContainer.appendChild(currContact);
     });
   });
 }
 
 function deleteData() {
-  const request = new Request('/delete-data', {method: 'POST'});
-  fetch(request).then((results) => getData());
+  // upon request navigate to the delete servlet and remove all comments from
+  // datastore
+  if (confirm('Do you wish to Delete all the comments ?')) {
+    const request = new Request('/delete-data', {method: 'POST'});
+    fetch(request).then((results) => getData());
+  }
+}
+
+/** Allow the user to login, when logged in -> display contact form */
+function userLogin() {
+  fetch('/login').then((response) => response.json()).then((currUser) => {
+    document.getElementById('form-overlay-text').innerHTML =
+        currUser.loginMessage;
+    if (currUser.isLoggedIn) {
+      document.getElementById('form-overlay').style.display = 'block';
+      document.getElementById('delete-btn').style.display = 'inline';
+    } else {
+      document.getElementById('form-overlay').style.display = 'none';
+      document.getElementById('delete-btn').style.display = 'none';
+    }
+  });
+}
+
+/** Initialize a map utlizing google's Map API for web */
+function initMap() {
+  // colors for styles
+
+  const markerPos = {lat: 31.770581604323954, lng: -106.50421142578125};
+  const marker =
+      new google.maps.Marker({position: markerPos, title: 'UTEP! My school.'});
+  const map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 31.7869021, lng: -106.3127764},
+    zoom: 15,
+    // set styles for dark mode
+    styles: [
+      {elementType: 'geometry', stylers: [{color: DARKER_BLUE}]},
+      {elementType: 'labels.text.stroke', stylers: [{color: DARKER_BLUE}]},
+      {elementType: 'labels.text.fill', stylers: [{color: LIGHT_BROWN}]}, {
+        featureType: 'administrative.locality',
+        elementType: 'labels.text.fill',
+        stylers: [{color: ORANGE}]
+      },
+      {
+        featureType: 'poi',
+        elementType: 'labels.text.fill',
+        stylers: [{color: ORANGE}]
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'geometry',
+        stylers: [{color: OPAQUE_BLUE}]
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'labels.text.fill',
+        stylers: [{color: DIM_GREEN}]
+      },
+      {featureType: 'road', elementType: 'geometry', stylers: [{color: GREY}]},
+      {
+        featureType: 'road',
+        elementType: 'geometry.stroke',
+        stylers: [{color: DARKER_GREY}]
+      },
+      {
+        featureType: 'road',
+        elementType: 'labels.text.fill',
+        stylers: [{color: LIGHT_GREY}]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry',
+        stylers: [{color: LIGHT_BROWN}]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry.stroke',
+        stylers: [{color: DARK_BLUE}]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'labels.text.fill',
+        stylers: [{color: BEIGE}]
+      },
+      {
+        featureType: 'transit',
+        elementType: 'geometry',
+        stylers: [{color: GREY_BLUE}]
+      },
+      {
+        featureType: 'transit.station',
+        elementType: 'labels.text.fill',
+        stylers: [{color: ORANGE}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'geometry',
+        stylers: [{color: BLACK_BLUE}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [{color: DARK_BABYBLUE}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.stroke',
+        stylers: [{color: DARK_BABYBLUE}]
+      }
+    ]
+  });
+  const contentString = '<div id="map-content">' +
+      '<div id="site-description">' +
+      '</div>' +
+      '<h1 id="firstHeading" class="firstHeading">UTEP</h1>' +
+      '<div id="bodyContent">' +
+      '<p>Attending UTEP since Fall 2018 as a computer science major' +
+      '. Utep is also recognized as one the most diverse schools along ' +
+      'with successful engineering programs.</p></div>' +
+      '</div>';
+
+  const infowindow = new google.maps.InfoWindow({content: contentString});
+  marker.setMap(map);
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
 }

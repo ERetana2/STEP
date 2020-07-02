@@ -7,8 +7,8 @@ body {
   height: inherit;
 }
 #menu-img {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   transition: 300ms;
   margin-left: 30px;
   border-radius: 50px 50px 50px 50px;
@@ -17,15 +17,15 @@ body {
   cursor: pointer;
   color: rgba(12, 12, 12, 0.898);
   width: 130px;
-  height: 130px;
+  height: 100px;
   padding-right: 15px;
-  padding-bottom: 10px;
   border: none;
   background: none;
   outline: none;
   display: block;
 }
 #img-caret {
+  float: right;
   color: #f0eded;
 }
 .drop-down:hover {
@@ -36,24 +36,29 @@ body {
   color: green;
 }
 #drop-down-container {
-  padding-left: 25px;
-  display: inline;
+  display: block;
 }
-#drop-down-container .dropdown-a {
-  padding: 0px 10px 0px 10px;
-  display: inline-block;
+#drop-down-container {
+  margin-left: 20px;
+  text-decoration: none;
+  display: block;
 }
 .dropdown-a {
-  text-align: center;
-  font-size: 20px;
+  padding: 0px 2px 0px 2px;
+  border-right: 2px solid whitesmoke;
   color: #f0eded;
+  display: block;
+  font-size: 20px;
+  margin-top: 30px;
+  text-decoration: none;
+  transition: 300ms;
 }
 #drop-down-container .dropdown-a:hover {
+  border-right: 2px solid greenyellow;
+  color: greenyellow;
   cursor: pointer;
   transition: 300ms;
-  border-right: none;
   opacity: 0.7;
-  color: greenyellow;
 }
 #nav-bar {
   border-radius: 10px;
@@ -67,12 +72,21 @@ body {
   left: 0;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.679);
   transition: 0.5s;
+  overflow: hidden;
 }
 #nav-bar:hover {
   border-top: 5px solid green;
   border-bottom: 5px solid green;
 }
-
+#home {
+  border-top: 2px solid green;
+  border-bottom: 2px solid green;
+  transition: 500ms;
+}
+#home:hover {
+  border-left: 5px solid green;
+  transition: 500ms;
+}
 .navbar-a {
   transition: 300ms;
   text-align: left;
@@ -108,13 +122,11 @@ body {
 }
 #tog-btn:hover {
   transition: 500ms;
-  -webkit-transform: scale(10px, 10px);
   background-color: green;
   box-shadow: 1px 1px 1px black;
 }
 #tog-btn:active {
   transition: 500ms;
-  -webkit-transform: scale(30px, 30px);
   background-color: green;
 }
 #content {
@@ -282,16 +294,16 @@ label {
   cursor: pointer;
   color: whitesmoke;
   padding: 12px 20px;
-  transition:500ms;
+  transition: 500ms;
 }
 
 #input-btn:hover {
   background-color: green;
-  transition:500ms;
+  transition: 500ms;
 }
 
 .contact-container {
-  margin-left: 160px;
+  width: calc(100% - 170px);
   border-radius: 10px;
   background-color: rgba(12, 12, 12, 0.898);
   box-shadow: 3px 3px 5px black;
@@ -310,7 +322,7 @@ label {
 }
 .pdf-container {
   margin-left: 160px;
-  width: calc(100%-170px);
+  width: calc(100% - 170px);
   height: 1000px;
   box-shadow: 3px 3px 6px black;
   transition: 500ms;
@@ -331,10 +343,11 @@ label {
   background-size: 100% 100%;
 }
 #more-info {
-  padding: 5px 2px 5px 2px;
+  padding: 10px 10px 10px 10px;
   font-size: 18px;
   color: white;
   text-align: left;
+  overflow: auto;
   position: relative;
 }
 #more-info-contact {
@@ -345,7 +358,7 @@ label {
   padding: 10px 5px 10px 5px;
   margin-left: 160px;
   background-color: rgba(12, 12, 12, 0.898);
-  transition: 500ms; 
+  transition: 500ms;
 }
 #more-info-contact:hover {
   border-radius: 20px;
@@ -354,6 +367,9 @@ label {
   border-top: 3px solid green;
   border-bottom: 3px solid green;
   transition: 500ms;
+}
+#comments {
+  margin-left: 10px;
 }
 .data-btn {
   padding: 3px 15px 3px 15px;
@@ -371,9 +387,43 @@ label {
   border-radius: 20px;
 }
 /*Form*/
+#form-overlay {
+  display: none;
+  overflow: hidden;
+  margin-left: 160px;
+  margin-bottom: 30px;
+  padding: 10px 0px 10px 0px;
+  transition: 0.8s ease;
+}
+#form-overlay-text {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  background-color: rgba(12, 12, 12, 0.898);
+  border-left: 5px solid green;
+  border-right: 5px solid green;
+  border-radius: 20px;
+  margin-left: 160px;
+  margin-right: 160px;
+}
+#form-overlay-text p {
+  color: whitesmoke;
+  font-size: 18px;
+}
+#form-overlay-text a {
+  font-size: 20px;
+  color: whitesmoke;
+  transition: 500ms;
+}
+#form-overlay-text a:hover {
+  color: green;
+  transition: 500ms;
+}
+
 #subject {
   height: 200px;
 }
+
 #contact-list {
   list-style-type: none;
 }
@@ -388,4 +438,38 @@ label {
 
 .contact span {
   flex-grow: 1;
+}
+/* Google Map*/
+#map {
+  transition: 500ms;
+  position: inherit;
+  margin-left: 160px;
+  margin-top: 40px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  border: 1px solid black;
+  height: 500px;
+  width: 90%;
+}
+#map:hover {
+  transition: 500ms;
+  border-radius: 50px;
+  box-shadow: 2px 2px 2px black;
+  border-top: 4px solid green;
+  border-bottom: 4px solid green;
+}
+.maps-title {
+  background-color: rgba(12, 12, 12, 0.898);
+  border-left: 5px solid green;
+  border-right: 5px solid green;
+  border-radius: 20px;
+  margin-left: 160px;
+  margin-right: 160px;
+  top: 30px;
+  padding: 10px 5px 10px 5px;
+  position: relative;
+  text-align: center;
+  color: whitesmoke;
+  font-size: 24px;
+  width: 90%;
 }
